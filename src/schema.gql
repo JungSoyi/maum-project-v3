@@ -1,0 +1,37 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Survey {
+  """survey id"""
+  survey_id: Int!
+  created_at: Timestamp!
+  updated_at: Timestamp!
+  total_score: Int!
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type Query {
+  survey(id: Int!): Survey!
+}
+
+type Mutation {
+  createSurvey(createSurveyInput: CreateSurveyInput!): Survey!
+  updateSurvey(updateSurveyInput: UpdateSurveyInput!): Survey!
+  removeSurvey(id: Int!): Survey!
+}
+
+input CreateSurveyInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateSurveyInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
