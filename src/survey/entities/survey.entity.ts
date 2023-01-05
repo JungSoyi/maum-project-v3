@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Question } from 'src/question/entities/question.entity';
 /**
  * survey_id : number
  * created_at : LocalDateTime
@@ -18,4 +19,7 @@ export class Survey {
 
   @Field(() => Int)
   total_score: number;
+
+  @Field(() => [Question])
+  questions: Question[];
 }
