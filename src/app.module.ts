@@ -15,9 +15,9 @@ import { QuestionModule } from './question/question.module';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'root',
-      password: 'root',
-      database: 'maum3',
+      username: 'postgres',
+      password: 'postgres',
+      database: 'board',
       entities: [],
       synchronize: true
     }),
