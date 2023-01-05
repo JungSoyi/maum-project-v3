@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SurveyModule } from './survey/survey.module';
 import { join } from 'path';
+import { QuestionModule } from './question/question.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { join } from 'path';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    SurveyModule],
+    SurveyModule,
+    QuestionModule],
   controllers: [AppController],
   providers: [AppService],
 })
