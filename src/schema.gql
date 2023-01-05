@@ -2,9 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Answer {
+  """Example field (placeholder)"""
+  answer_id: Int!
+  answer_item: String!
+  answer_score: Int!
+}
+
 type Question {
   question_id: Int!
   question_item: String!
+  answers: [Answer!]!
 }
 
 type Survey {
