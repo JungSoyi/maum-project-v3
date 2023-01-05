@@ -15,14 +15,23 @@ type Survey {
 """
 scalar Timestamp
 
+type Question {
+  question_id: Int!
+  question_item: String!
+}
+
 type Query {
   survey(id: Int!): Survey!
+  question(id: Int!): Question!
 }
 
 type Mutation {
   createSurvey(createSurveyInput: CreateSurveyInput!): Survey!
   updateSurvey(updateSurveyInput: UpdateSurveyInput!): Survey!
   removeSurvey(id: Int!): Survey!
+  createQuestion(createQuestionInput: CreateQuestionInput!): Question!
+  updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
+  removeQuestion(id: Int!): Question!
 }
 
 input CreateSurveyInput {
@@ -31,6 +40,17 @@ input CreateSurveyInput {
 }
 
 input UpdateSurveyInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateQuestionInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateQuestionInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
