@@ -18,7 +18,7 @@ import { AnswerModule } from './answer/answer.module';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'board',
+      database: 'postgres',
       entities: [],
       synchronize: true
     }),

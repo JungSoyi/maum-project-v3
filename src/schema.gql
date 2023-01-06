@@ -10,7 +10,7 @@ type Answer {
 }
 
 type Question {
-  question_id: Int!
+  question_id: ID!
   question_item: String!
   answers: [Answer!]!
 }
@@ -59,13 +59,11 @@ input UpdateSurveyInput {
 }
 
 input CreateQuestionInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  question_item: String!
 }
 
 input UpdateQuestionInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  question_item: String
   id: Int!
 }
 
