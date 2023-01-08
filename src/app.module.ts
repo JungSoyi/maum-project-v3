@@ -9,6 +9,8 @@ import { SurveyModule } from './survey/survey.module';
 import { join } from 'path';
 import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
+import { DataSource } from 'typeorm';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -26,4 +28,6 @@ import { AnswerModule } from './answer/answer.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {
+
+}

@@ -9,15 +9,18 @@ export class QuestionService {
 
   constructor(
     @Inject('QUESTION_REPOSITORY')
-    private photoRepository: Repository<Question>,
+    private questionRepository: Repository<Question>,
   ) { }
 
   create(createQuestionInput: CreateQuestionInput) {
-    return 'This action adds a new question';
+    const question = new Question();
+    question.question_item = createQuestionInput.question_item;
+    question.question_number = createQuestionInput.question_number;
+    return this.questionRepository.save(question);
   }
 
-  findAll() {
-    return `This action returns all question`;
+  findAll(): Promise<Question[]> {
+    return this.questionRepository.find();
   }
 
   findOne(id: number) {
