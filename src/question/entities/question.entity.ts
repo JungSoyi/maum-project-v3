@@ -1,16 +1,19 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Answer } from 'src/answer/entities/answer.entity';
-import { Generated } from 'typeorm';
+import { Column, Entity, Generated, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
 
 @ObjectType()
+@Entity()
 export class Question {
   @Field(() => ID)
-  @Generated('increment')
+  @PrimaryGeneratedColumn()
   question_id: number;
 
   @Field(() => String)
+  @Column()
   question_item: string;
 
-  @Field(() => [Answer])
+  @Field(() => Answer)
+  @OneToMany(() => Answer, (answer) => answer.answer_id)
   answers: Answer[];
 }

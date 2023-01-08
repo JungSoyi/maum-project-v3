@@ -1,9 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
+import { Question } from './entities/question.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class QuestionService {
+
+  constructor(
+    @Inject('QUESTION_REPOSITORY')
+    private photoRepository: Repository<Question>,
+  ) { }
+
   create(createQuestionInput: CreateQuestionInput) {
     return 'This action adds a new question';
   }
