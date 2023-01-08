@@ -71,12 +71,14 @@ input UpdateQuestionInput {
 }
 
 input CreateAnswerInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  answer_number: Int!
+  answer_item: String!
+  answer_score: Int!
 }
 
 input UpdateAnswerInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  answer_number: Int
+  answer_item: String
+  answer_score: Int
   id: Int!
 }

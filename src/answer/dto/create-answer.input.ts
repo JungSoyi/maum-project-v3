@@ -2,6 +2,12 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateAnswerInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => Int)
+  answer_number: number;
+
+  @Field(() => String)
+  answer_item: string;
+
+  @Field(() => Int)
+  answer_score: number;
 }
