@@ -1,11 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
 import { CreateAnswerInput } from './dto/create-answer.input';
 import { UpdateAnswerInput } from './dto/update-answer.input';
+import { Answer } from './entities/answer.entity';
 
 @Injectable()
 export class AnswerService {
+
+  constructor(
+    @Inject('ANSWER_REPOSITORY')
+    private answerRepository: Repository<Answer>,
+  ) { }
+
   create(createAnswerInput: CreateAnswerInput) {
-    return 'This action adds a new answer';
+    const answer = new Answer();
+    answer.answer_number = createAnswerInput.answer_number;
+    answer.answer_item = createAnswerInput.answer_item;
+    answer.answer_score = createAnswerInput.answer_score;
+    return this.answerRepository.save(answer);
   }
 
   findAll() {
