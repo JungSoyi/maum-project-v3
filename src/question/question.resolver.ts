@@ -6,7 +6,7 @@ import { UpdateQuestionInput } from './dto/update-question.input';
 
 @Resolver(() => Question)
 export class QuestionResolver {
-  constructor(private readonly questionService: QuestionService) {}
+  constructor(private readonly questionService: QuestionService) { }
 
   @Mutation(() => Question)
   createQuestion(@Args('createQuestionInput') createQuestionInput: CreateQuestionInput) {
