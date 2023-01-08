@@ -3,6 +3,6 @@ import { AnswerService } from './answer.service';
 import { AnswerResolver } from './answer.resolver';
 
 @Module({
-  providers: [AnswerResolver, AnswerService]
+    providers: [AnswerResolver, AnswerService]
 })
-export class AnswerModule {}
+export class AnswerModule { }

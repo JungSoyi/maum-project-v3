@@ -12,16 +12,6 @@ import { AnswerModule } from './answer/answer.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'board',
-      entities: [],
-      synchronize: true
-    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       buildSchemaOptions: {
         dateScalarMode: 'timestamp',
@@ -31,7 +21,8 @@ import { AnswerModule } from './answer/answer.module';
     }),
     SurveyModule,
     QuestionModule,
-    AnswerModule],
+    AnswerModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

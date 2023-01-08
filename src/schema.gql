@@ -3,16 +3,17 @@
 # ------------------------------------------------------
 
 type Answer {
-  """Example field (placeholder)"""
   answer_id: Int!
+  answer_number: Int!
   answer_item: String!
   answer_score: Int!
 }
 
 type Question {
-  question_id: Int!
+  question_id: ID!
+  question_number: Int!
   question_item: String!
-  answers: [Answer!]!
+  answers: Answer!
 }
 
 type Survey {
@@ -59,13 +60,11 @@ input UpdateSurveyInput {
 }
 
 input CreateQuestionInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  question_item: String!
 }
 
 input UpdateQuestionInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  question_item: String
   id: Int!
 }
 

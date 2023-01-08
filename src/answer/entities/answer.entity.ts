@@ -1,13 +1,26 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Question } from 'src/question/entities/question.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
+@Entity()
 export class Answer {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  answer_id: number;
+    @Field(() => Int)
+    @PrimaryGeneratedColumn()
+    answer_id: number;
 
-  @Field(() => String)
-  answer_item: string;
+    @Field(() => Int)
+    @Column()
+    answer_number: number
 
-  @Field(() => Int)
-  answer_score: number;
+    @Field(() => String)
+    @Column()
+    answer_item: string;
+
+    @Field(() => Int)
+    @Column()
+    answer_score: number;
+
+    @ManyToOne(() => Question, (question) => question.answers)
+    question: Question
 }
