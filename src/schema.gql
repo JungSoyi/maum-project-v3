@@ -4,12 +4,14 @@
 
 type Answer {
   answer_id: Int!
+  answer_number: Int!
   answer_item: String!
   answer_score: Int!
 }
 
 type Question {
   question_id: ID!
+  question_number: Int!
   question_item: String!
   answers: Answer!
 }

@@ -9,6 +9,10 @@ export class Question {
   @PrimaryGeneratedColumn()
   question_id: number;
 
+  @Field(() => Int)
+  @Column()
+  question_number: number
+
   @Field(() => String)
   @Column()
   question_item: string;
