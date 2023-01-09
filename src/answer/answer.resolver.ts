@@ -13,6 +13,11 @@ export class AnswerResolver {
         return this.answerService.create(createAnswerInput);
     }
 
+    @Mutation(() => [Answer])
+    createAnswers(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
+        return this.answerService.create(createAnswerInput);
+    }
+
     @Query(() => [Answer], { name: 'answer' })
     findAll() {
         return this.answerService.findAll();
