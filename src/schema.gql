@@ -44,6 +44,7 @@ type Mutation {
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
   removeQuestion(id: Int!): Question!
   createAnswer(createAnswerInput: CreateAnswerInput!): Answer!
+  createAnswers(createAnswerInput: CreateAnswerInput!): [Answer!]!
   updateAnswer(updateAnswerInput: UpdateAnswerInput!): Answer!
   removeAnswer(id: Int!): Answer!
 }
