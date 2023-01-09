@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { Answer } from 'src/answer/entities/answer.entity';
 
 @InputType()
 export class CreateQuestionInput {
