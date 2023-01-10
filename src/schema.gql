@@ -2,14 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-directive @upper on FIELD_DEFINITION
-
 type Answer {
   answer_id: Int!
   answer_number: Int!
   answer_item: String!
   answer_score: Int!
-  question: Question!
 }
 
 type Question {
@@ -35,10 +32,8 @@ scalar Timestamp
 
 type Query {
   survey(id: Int!): Survey!
-  findQuestions: [Question!]!
-  findQuestionById(id: Int!): Question!
-  finsAnswers: [Answer!]!
-  findAnswerById(id: Int!): Answer!
+  question(id: Int!): Question!
+  answer(id: Int!): Answer!
 }
 
 type Mutation {

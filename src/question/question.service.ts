@@ -14,7 +14,6 @@ export class QuestionService {
   constructor(
     @Inject('QUESTION_REPOSITORY')
     private questionRepository: Repository<Question>,
-    private answerResolver: AnswerResolver
   ) { }
 
 
@@ -22,13 +21,6 @@ export class QuestionService {
     const question = new Question();
     question.question_item = createQuestionInput.question_item;
     question.question_number = createQuestionInput.question_number;
-    // let answers: Answer[] = [];
-    // for (var i = 0; i < createAnswerInput.length; i++) {
-    //   const answer = await this.answerResolver.createAnswer(createAnswerInput[i]);
-    //   answer.question = question;
-    //   answers.push(answer);
-    // }
-    // question.answers = answers;
 
     return this.questionRepository.save(question);
 

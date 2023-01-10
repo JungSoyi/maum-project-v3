@@ -10,8 +10,8 @@ import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => Question)
 export class QuestionResolver {
-  constructor(private readonly questionService: QuestionService,
-    private answerService: AnswerService) { }
+  constructor(private readonly questionService: QuestionService
+  ) { }
 
   @Mutation(() => Question)
   createQuestion(@Args('createQuestionInput') createQuestionInput: CreateQuestionInput,
@@ -22,11 +22,6 @@ export class QuestionResolver {
   @Query(() => [Question], { name: 'findQuestions' })
   findAll() {
     return this.questionService.findAll();
-  }
-
-  @Query(() => Question, { name: 'question' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.questionService.findOne(id);
   }
 
   @Query(() => Question, { name: 'findQuestionById' })

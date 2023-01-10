@@ -11,7 +11,7 @@ import { answerProviders } from 'src/answer/answer.providers';
 import { AnswerResolver } from 'src/answer/answer.resolver';
 
 @Module({
-  imports: [DatabaseModule, AnswerModule],
-  providers: [QuestionResolver, QuestionService, AnswerService, AnswerResolver, ...questionProviders, ...answerProviders],
+  imports: [DatabaseModule],
+  providers: [QuestionResolver, QuestionService, ...questionProviders],
 })
 export class QuestionModule { }
