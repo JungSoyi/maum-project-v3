@@ -1,4 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { Question } from 'src/question/entities/question.entity';
+import { QuestionService } from 'src/question/question.service';
 import { Repository } from 'typeorm';
 import { CreateAnswerInput } from './dto/create-answer.input';
 import { UpdateAnswerInput } from './dto/update-answer.input';
@@ -9,10 +11,10 @@ export class AnswerService {
 
   constructor(
     @Inject('ANSWER_REPOSITORY')
-    private answerRepository: Repository<Answer>,
+    private answerRepository: Repository<Answer>
   ) { }
 
-  create(createAnswerInput: CreateAnswerInput) {
+  async create(createAnswerInput: CreateAnswerInput) {
     const answer = new Answer();
     answer.answer_number = createAnswerInput.answer_number;
     answer.answer_item = createAnswerInput.answer_item;
@@ -20,19 +22,19 @@ export class AnswerService {
     return this.answerRepository.save(answer);
   }
 
-  findAll() {
-    return `This action returns all answer`;
+  async findAll(question_id: number): Promise<Answer> {
+    return {} as any;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} answer`;
+  async findOne(id: number) {
+    return {} as any;
   }
 
-  update(id: number, updateAnswerInput: UpdateAnswerInput) {
+  async update(id: number, updateAnswerInput: UpdateAnswerInput) {
     return `This action updates a #${id} answer`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} answer`;
+  async remove(id: number): Promise<boolean> {
+    return true;
   }
 }

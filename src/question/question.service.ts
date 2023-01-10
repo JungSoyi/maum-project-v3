@@ -22,7 +22,6 @@ export class QuestionService {
     const question = new Question();
     question.question_item = createQuestionInput.question_item;
     question.question_number = createQuestionInput.question_number;
-    //답변리스트의 질문아이디 컬럼에 지금 만든 질문 아이디 넣어버리는 로직 작성하기
     let answers: Answer[] = [];
     for (var i = 0; i < createAnswerInput.length; i++) {
       const answer = await this.answerResolver.createAnswer(createAnswerInput[i]);
