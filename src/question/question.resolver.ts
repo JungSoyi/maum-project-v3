@@ -6,6 +6,7 @@ import { UpdateQuestionInput } from './dto/update-question.input';
 import { Answer } from 'src/answer/entities/answer.entity';
 import { CreateAnswerInput } from 'src/answer/dto/create-answer.input';
 import { AnswerService } from 'src/answer/answer.service';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => Question)
 export class QuestionResolver {
@@ -18,7 +19,7 @@ export class QuestionResolver {
     return this.questionService.create(createQuestionInput, [CreateAnswerInput]);
   }
 
-  @Query(() => [Question], { name: 'question' })
+  @Query(() => [Question], { name: 'findQuestions' })
   findAll() {
     return this.questionService.findAll();
   }
@@ -26,6 +27,15 @@ export class QuestionResolver {
   @Query(() => Question, { name: 'question' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.questionService.findOne(id);
+  }
+
+  @Query(() => Question, { name: 'findQuestionById' })
+  async findOneById(@Args('id', { type: () => Int }) id: number) {
+    const question = await this.questionService.findById(id);
+    if (!question) {
+      throw new NotFoundException(id)
+    }
+    return question;
   }
 
   @Mutation(() => Question)

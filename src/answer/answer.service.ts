@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Question } from 'src/question/entities/question.entity';
-import { QuestionService } from 'src/question/question.service';
 import { Repository } from 'typeorm';
 import { CreateAnswerInput } from './dto/create-answer.input';
 import { UpdateAnswerInput } from './dto/update-answer.input';
@@ -11,14 +10,16 @@ export class AnswerService {
 
   constructor(
     @Inject('ANSWER_REPOSITORY')
-    private answerRepository: Repository<Answer>
-  ) { }
+    private answerRepository: Repository<Answer>) { }
 
-  async create(createAnswerInput: CreateAnswerInput) {
+  async create(createAnswerInput: CreateAnswerInput, question_id: number) {
     const answer = new Answer();
     answer.answer_number = createAnswerInput.answer_number;
     answer.answer_item = createAnswerInput.answer_item;
     answer.answer_score = createAnswerInput.answer_score;
+    // let question = new Question();
+    // question = this.qustionService.findById(question_id);
+    // answer.question = this.qustionService.findById(question_id);
     return this.answerRepository.save(answer);
   }
 

@@ -2,6 +2,8 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+directive @upper on FIELD_DEFINITION
+
 type Answer {
   answer_id: Int!
   answer_number: Int!
@@ -32,8 +34,11 @@ scalar Timestamp
 
 type Query {
   survey(id: Int!): Survey!
+  findQuestions: [Question!]!
   question(id: Int!): Question!
-  answer(id: Int!): Answer!
+  findQuestionById(id: Int!): Question!
+  finsAnswers: [Answer!]!
+  findAnswerById(id: Int!): Answer!
 }
 
 type Mutation {
@@ -43,8 +48,6 @@ type Mutation {
   createQuestion(createQuestionInput: CreateQuestionInput!, createAnswerInput: CreateAnswerInput!): Question!
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
   removeQuestion(id: Int!): Question!
-  createAnswer(createAnswerInput: CreateAnswerInput!): Answer!
-  createAnswers(createAnswerInput: CreateAnswerInput!): [Answer!]!
   updateAnswer(updateAnswerInput: UpdateAnswerInput!): Answer!
   removeAnswer(id: Int!): Answer!
 }

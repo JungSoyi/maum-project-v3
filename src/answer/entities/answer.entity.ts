@@ -24,4 +24,5 @@ export class Answer {
     @ManyToOne(() => Question, (question) => question.answers)
     @JoinColumn({ name: "question_id" })
     question: Question
+
 }

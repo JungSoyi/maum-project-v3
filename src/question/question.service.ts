@@ -22,13 +22,13 @@ export class QuestionService {
     const question = new Question();
     question.question_item = createQuestionInput.question_item;
     question.question_number = createQuestionInput.question_number;
-    let answers: Answer[] = [];
-    for (var i = 0; i < createAnswerInput.length; i++) {
-      const answer = await this.answerResolver.createAnswer(createAnswerInput[i]);
-      answer.question = question;
-      answers.push(answer);
-    }
-    question.answers = answers;
+    // let answers: Answer[] = [];
+    // for (var i = 0; i < createAnswerInput.length; i++) {
+    //   const answer = await this.answerResolver.createAnswer(createAnswerInput[i]);
+    //   answer.question = question;
+    //   answers.push(answer);
+    // }
+    // question.answers = answers;
 
     return this.questionRepository.save(question);
 
@@ -40,6 +40,10 @@ export class QuestionService {
 
   findOne(id: number) {
     return `This action returns a #${id} question`;
+  }
+
+  findById(question_id: number) {
+    return this.questionRepository.findOneBy({ question_id });
   }
 
   update(id: number, updateQuestionInput: UpdateQuestionInput) {
