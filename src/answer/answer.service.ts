@@ -11,24 +11,32 @@ export class AnswerService {
 
   constructor(
     @Inject('ANSWER_REPOSITORY')
-    private answerRepository: Repository<Answer>
+    private answerRepository: Repository<Answer>,
+    private questionService: QuestionService
   ) { }
 
-  async create(createAnswerInput: CreateAnswerInput) {
+  async create(createAnswerInput: CreateAnswerInput, question_id: number) {
     const answer = new Answer();
     answer.answer_number = createAnswerInput.answer_number;
     answer.answer_item = createAnswerInput.answer_item;
     answer.answer_score = createAnswerInput.answer_score;
-    return this.answerRepository.save(answer);
+    const question = this.questionService.findById(question_id);
+    answer.question = question;
+    return await this.answerRepository.save(answer);
   }
 
   async findAll(question_id: number): Promise<Answer> {
     return {} as any;
   }
 
-  async findOne(id: number) {
-    return {} as any;
+  async findOne(answer_id: number) {
+    return this.answerRepository.findOneBy({ answer_id });
   }
+
+  // async findAnswerByQuestionId(question_id: number) {
+  //   const question = this.questionService.findById( question_id );
+  //   return this.answerRepository.findOneBy(question)
+  // }
 
   async update(id: number, updateAnswerInput: UpdateAnswerInput) {
     return `This action updates a #${id} answer`;

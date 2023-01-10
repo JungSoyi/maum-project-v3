@@ -21,7 +21,9 @@ export class Answer {
     @Column()
     answer_score: number;
 
+    @Field(() => Question)
     @ManyToOne(() => Question, (question) => question.answers)
     @JoinColumn({ name: "question_id" })
-    question: Question
+    question: Promise<Question>
+
 }

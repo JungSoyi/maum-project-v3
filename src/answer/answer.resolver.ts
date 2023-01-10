@@ -9,21 +9,21 @@ export class AnswerResolver {
     constructor(private readonly answerService: AnswerService) { }
 
     @Mutation(() => Answer)
-    createAnswer(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
-        return this.answerService.create(createAnswerInput);
+    createAnswer(@Args({ name: 'question_Id', type: () => Int }) question_Id: number, @Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
+        return this.answerService.create(createAnswerInput, question_Id);
     }
 
     @Mutation(() => [Answer])
-    createAnswers(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
-        return this.answerService.create(createAnswerInput);
+    createAnswers(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput, @Args({ name: 'question_Id', type: () => Int }) question_Id: number) {
+        return this.answerService.create(createAnswerInput, question_Id);
     }
 
-    @Query(() => [Answer], { name: 'answer' })
+    @Query(() => [Answer], { name: 'findAnswers' })
     findAll(question_id: number) {
         return this.answerService.findAll(question_id);
     }
 
-    @Query(() => Answer, { name: 'answer' })
+    @Query(() => Answer, { name: 'findAnswerById' })
     findOne(@Args('id', { type: () => Int }) id: number) {
         return this.answerService.findOne(id);
     }

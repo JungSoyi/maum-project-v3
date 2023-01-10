@@ -11,15 +11,24 @@ import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
 import { DataSource } from 'typeorm';
 import { DatabaseModule } from './database/database.module';
+import { DirectiveLocation, GraphQLDirective } from 'graphql';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       buildSchemaOptions: {
         dateScalarMode: 'timestamp',
+        directives: [
+          new GraphQLDirective({
+            name: 'upper',
+            locations: [DirectiveLocation.FIELD_DEFINITION],
+          }),
+        ],
       },
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: 'schema.gql',
+      installSubscriptionHandlers: true,
+      // autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     SurveyModule,
     QuestionModule,
