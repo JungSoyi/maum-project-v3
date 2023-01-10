@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { Question } from 'src/question/entities/question.entity';
 import { QuestionService } from 'src/question/question.service';
 import { Repository } from 'typeorm';
 import { CreateAnswerInput } from './dto/create-answer.input';
@@ -21,8 +22,7 @@ export class AnswerService {
     answer.answer_score = createAnswerInput.answer_score;
     const question = this.questionService.findById(question_id);
     answer.question = question;
-    (await answer.question).question_id = question_id;
-    return this.answerRepository.save(answer);
+    return await this.answerRepository.save(answer);
   }
 
   async findAll(question_id: number): Promise<Answer> {
@@ -32,6 +32,11 @@ export class AnswerService {
   async findOne(answer_id: number) {
     return this.answerRepository.findOneBy({ answer_id });
   }
+
+  // async findAnswerByQuestionId(question_id: number) {
+  //   const question = this.questionService.findById( question_id );
+  //   return this.answerRepository.findOneBy(question)
+  // }
 
   async update(id: number, updateAnswerInput: UpdateAnswerInput) {
     return `This action updates a #${id} answer`;

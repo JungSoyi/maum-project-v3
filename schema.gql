@@ -37,7 +37,7 @@ type Query {
   survey(id: Int!): Survey!
   findQuestions: [Question!]!
   findQuestionById(id: Int!): Question!
-  finsAnswers: [Answer!]!
+  findAnswers: [Answer!]!
   findAnswerById(id: Int!): Answer!
 }
 

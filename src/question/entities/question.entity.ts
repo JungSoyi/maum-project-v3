@@ -18,7 +18,7 @@ export class Question {
   question_item: string;
 
   @Field(() => [Answer], { nullable: true })
-  @OneToMany(() => Answer, (answer) => answer.answer_id, { cascade: true })
+  @OneToMany(() => Answer, (answer) => answer.question, { cascade: true })
   @JoinColumn({ name: "answer_id" })
   answers?: Answer[];
 }

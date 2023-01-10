@@ -18,7 +18,7 @@ export class AnswerResolver {
         return this.answerService.create(createAnswerInput, question_Id);
     }
 
-    @Query(() => [Answer], { name: 'finsAnswers' })
+    @Query(() => [Answer], { name: 'findAnswers' })
     findAll(question_id: number) {
         return this.answerService.findAll(question_id);
     }
