@@ -8,15 +8,15 @@ import { UpdateAnswerInput } from './dto/update-answer.input';
 export class AnswerResolver {
     constructor(private readonly answerService: AnswerService) { }
 
-    // @Mutation(() => Answer)
-    // createAnswer(@Args({ name: 'questionId', type: () => Int }) questionId: number, @Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
-    //     return this.answerService.create(question_id: questionId, createAnswerInput);
-    // }
+    @Mutation(() => Answer)
+    createAnswer(@Args({ name: 'question_Id', type: () => Int }) question_Id: number, @Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
+        return this.answerService.create(createAnswerInput, question_Id);
+    }
 
-    // @Mutation(() => [Answer])
-    // createAnswers(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
-    //     return this.answerService.create(createAnswerInput);
-    // }
+    @Mutation(() => [Answer])
+    createAnswers(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput, @Args({ name: 'question_Id', type: () => Int }) question_Id: number) {
+        return this.answerService.create(createAnswerInput, question_Id);
+    }
 
     @Query(() => [Answer], { name: 'finsAnswers' })
     findAll(question_id: number) {

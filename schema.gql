@@ -16,7 +16,7 @@ type Question {
   question_id: Int!
   question_number: Int!
   question_item: String!
-  answers: [Answer!]!
+  answers: [Answer!]
 }
 
 type Survey {
@@ -45,9 +45,11 @@ type Mutation {
   createSurvey(createSurveyInput: CreateSurveyInput!): Survey!
   updateSurvey(updateSurveyInput: UpdateSurveyInput!): Survey!
   removeSurvey(id: Int!): Survey!
-  createQuestion(createQuestionInput: CreateQuestionInput!, createAnswerInput: CreateAnswerInput!): Question!
+  createQuestion(createQuestionInput: CreateQuestionInput!): Question!
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
   removeQuestion(id: Int!): Question!
+  createAnswer(question_Id: Int!, createAnswerInput: CreateAnswerInput!): Answer!
+  createAnswers(createAnswerInput: CreateAnswerInput!, question_Id: Int!): [Answer!]!
   updateAnswer(updateAnswerInput: UpdateAnswerInput!): Answer!
   removeAnswer(id: Int!): Answer!
 }
@@ -68,16 +70,16 @@ input CreateQuestionInput {
   question_number: Int!
 }
 
-input CreateAnswerInput {
-  answer_number: Int!
-  answer_item: String!
-  answer_score: Int!
-}
-
 input UpdateQuestionInput {
   question_item: String
   question_number: Int
   id: Int!
+}
+
+input CreateAnswerInput {
+  answer_number: Int!
+  answer_item: String!
+  answer_score: Int!
 }
 
 input UpdateAnswerInput {

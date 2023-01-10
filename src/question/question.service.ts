@@ -3,10 +3,7 @@ import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
 import { Question } from './entities/question.entity';
 import { Repository } from 'typeorm';
-import { Answer } from 'src/answer/entities/answer.entity';
-import { CreateAnswerInput } from 'src/answer/dto/create-answer.input';
-import { AnswerService } from 'src/answer/answer.service';
-import { AnswerResolver } from 'src/answer/answer.resolver';
+
 
 @Injectable()
 export class QuestionService {
@@ -17,7 +14,7 @@ export class QuestionService {
   ) { }
 
 
-  async create(createQuestionInput: CreateQuestionInput, createAnswerInput: [CreateAnswerInput]) {
+  async create(createQuestionInput: CreateQuestionInput) {
     const question = new Question();
     question.question_item = createQuestionInput.question_item;
     question.question_number = createQuestionInput.question_number;

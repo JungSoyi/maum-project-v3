@@ -1,6 +1,6 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int, } from '@nestjs/graphql';
 import { Answer } from 'src/answer/entities/answer.entity';
-import { Column, Entity, Generated, JoinColumn, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -17,8 +17,8 @@ export class Question {
   @Column()
   question_item: string;
 
-  @Field(() => [Answer])
+  @Field(() => [Answer], { nullable: true })
   @OneToMany(() => Answer, (answer) => answer.answer_id, { cascade: true })
   @JoinColumn({ name: "answer_id" })
-  answers: Answer[];
+  answers?: Answer[];
 }
