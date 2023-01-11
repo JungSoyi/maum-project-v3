@@ -9,7 +9,7 @@ import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { DataLoaderInterceptor } from 'nestjs-graphql-dataloader'
+import { NodesModules } from './nodes/nodes.module';
 
 
 
@@ -32,7 +32,8 @@ import { DataLoaderInterceptor } from 'nestjs-graphql-dataloader'
     }),
     SurveyModule,
     QuestionModule,
-    AnswerModule
+    AnswerModule,
+    NodesModules
   ],
   controllers: [AppController],
   providers: [

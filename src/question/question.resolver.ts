@@ -4,13 +4,11 @@ import { Question } from './entities/question.entity';
 import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
 import { NotFoundException } from '@nestjs/common';
-import { AnswerService } from 'src/answer/answer.service';
 import { Answer } from 'src/answer/entities/answer.entity';
 
 @Resolver(() => Question)
 export class QuestionResolver {
-  constructor(private readonly questionService: QuestionService,
-    // private answerService: AnswerService
+  constructor(private readonly questionService: QuestionService
   ) { }
 
   @Mutation(() => Question)
@@ -25,8 +23,8 @@ export class QuestionResolver {
   }
 
   @Query(() => Question, { name: 'findQuestionById' })
-  async findOneById(@Args('id', { type: () => Int }) id: number) {
-    const question = await this.questionService.findById(id);
+  async findOneById(@Args('id', { type: () => String }) id: string) {
+    const question = await this.questionService.findOneById(id);
     if (!question) {
       throw new NotFoundException(id)
     }
@@ -43,8 +41,5 @@ export class QuestionResolver {
     return this.questionService.remove(id);
   }
 
-  // @ResolveField((of) => [Answer])
-  // public answers(@Parent() question: Question): Promise<Answer[]> {
-  //   return this.answerService.findAllByQuestionId(question.question_id);
-  // }
+
 }

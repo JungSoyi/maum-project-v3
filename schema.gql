@@ -4,22 +4,42 @@
 
 directive @upper on FIELD_DEFINITION
 
-type Answer {
-  answer_id: Int!
+interface Node {
+  id: ID!
+}
+
+type Answer implements Node {
+  id: ID!
+  answer_id: String!
   answer_number: Int!
   answer_item: String!
   answer_score: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   question: Question!
-  question_id: Float!
+  question_id: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Question {
-  question_id: Int!
+  question_id: String!
   question_number: Int!
   question_item: String!
   answers: [Answer!]
+  id: ID!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
   answer_id: Float!
 }
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
 
 type Survey {
   """survey id"""
@@ -30,17 +50,35 @@ type Survey {
   questions: [Question!]!
 }
 
-"""
-`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
-"""
-scalar Timestamp
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+}
+
+type AnswerEdge {
+  node: Answer!
+
+  """Used in `before` and `after` args"""
+  cursor: String!
+}
+
+type AggregateAnswer {
+  count: Int!
+}
+
+type CreateAnswerPayload {
+  answerEdge: AnswerEdge!
+}
 
 type Query {
   survey(id: Int!): Survey!
   findQuestions: [Question!]!
-  findQuestionById(id: Int!): Question!
+  findQuestionById(id: String!): Question!
   findAnswers: [Answer!]!
   findAnswerById(id: Int!): Answer!
+  node(id: ID!): Node
 }
 
 type Mutation {
@@ -50,8 +88,7 @@ type Mutation {
   createQuestion(createQuestionInput: CreateQuestionInput!): Question!
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
   removeQuestion(id: Int!): Question!
-  createAnswer(question_Id: Int!, createAnswerInput: CreateAnswerInput!): Answer!
-  createAnswers(createAnswerInput: CreateAnswerInput!, question_Id: Int!): [Answer!]!
+  createAnswer(data: CreateAnswerInput!): CreateAnswerPayload!
   updateAnswer(updateAnswerInput: UpdateAnswerInput!): Answer!
   removeAnswer(id: Int!): Answer!
 }
@@ -82,11 +119,13 @@ input CreateAnswerInput {
   answer_number: Int!
   answer_item: String!
   answer_score: Int!
+  question_id: String!
 }
 
 input UpdateAnswerInput {
   answer_number: Int
   answer_item: String
   answer_score: Int
+  question_id: String
   id: Int!
 }

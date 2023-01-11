@@ -6,6 +6,9 @@ import { UpdateAnswerInput } from './dto/update-answer.input';
 import { Question } from 'src/question/entities/question.entity';
 import { Repository } from 'typeorm';
 import { QuestionService } from 'src/question/question.service';
+import { CreateAnswerPayload } from './create-answer.payload';
+import * as Relay from 'graphql-relay';
+
 
 @Resolver(() => Answer)
 export class AnswerResolver {
@@ -14,15 +17,31 @@ export class AnswerResolver {
         // private readonly questionService: QuestionService
     ) { }
 
-    @Mutation(() => Answer)
-    createAnswer(@Args({ name: 'question_Id', type: () => Int }) question_Id: number, @Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
-        return this.answerService.create(createAnswerInput, question_Id);
+    // @Mutation(() => Answer)
+    // createAnswer(@Args({ name: 'question_Id', type: () => Int }) question_Id: number, @Args('createAnswerInput') createAnswerInput: CreateAnswerInput) {
+    //     return this.answerService.create(createAnswerInput, question_Id);
+    // }
+
+    @Mutation((_returns) => CreateAnswerPayload)
+    async createAnswer(
+        @Args('data') data: CreateAnswerInput,
+    ): Promise<CreateAnswerPayload> {
+        const { question_id, ...rest } = data;
+        const databaseQuestionId = Relay.fromGlobalId(question_id).id;
+        const createdAnswer = await this.answerService.create({
+            ...rest,
+            question_id: databaseQuestionId,
+        });
+        return {
+            answerEdge: { node: createdAnswer, cursor: `temp:${createdAnswer.relayId}` },
+        };
     }
 
-    @Mutation(() => [Answer])
-    createAnswers(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput, @Args({ name: 'question_Id', type: () => Int }) question_Id: number) {
-        return this.answerService.create(createAnswerInput, question_Id);
-    }
+
+    // @Mutation(() => [Answer])
+    // createAnswers(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput, @Args({ name: 'question_Id', type: () => Int }) question_Id: number) {
+    //     return this.answerService.create(createAnswerInput, question_Id);
+    // }
 
     @Query(() => [Answer], { name: 'findAnswers' })
     findAll(question_id: number) {
@@ -30,7 +49,7 @@ export class AnswerResolver {
     }
 
     @Query(() => Answer, { name: 'findAnswerById' })
-    findOne(@Args('id', { type: () => Int }) id: number) {
+    findOne(@Args('id', { type: () => Int }) id: string) {
         return this.answerService.findOne(id);
     }
 

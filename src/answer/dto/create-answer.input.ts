@@ -10,4 +10,7 @@ export class CreateAnswerInput {
 
   @Field(() => Int)
   answer_score: number;
+
+  @Field(() => String)
+  question_id: string;
 }

@@ -6,9 +6,10 @@ import { answerProviders } from './answer.providers';
 import { QuestionModule } from 'src/question/question.module';
 import { QuestionService } from 'src/question/question.service';
 import { questionProviders } from 'src/question/question.providers';
+import { NodesModules } from 'src/nodes/nodes.module';
 
 @Module({
     imports: [DatabaseModule, QuestionModule],
-    providers: [AnswerResolver, AnswerService, ...answerProviders]
+    providers: [AnswerResolver, AnswerService, ...answerProviders, QuestionService, ...questionProviders]
 })
 export class AnswerModule { }

@@ -34,7 +34,7 @@ export class QuestionService {
     return `This action returns a #${id} question`;
   }
 
-  findById(question_id: number) {
+  findOneById(question_id: string) {
     return this.questionRepository.findOneBy({ question_id });
   }
 
