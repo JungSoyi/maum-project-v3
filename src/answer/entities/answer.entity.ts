@@ -1,13 +1,16 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID, GraphQLISODateTime } from '@nestjs/graphql';
 import { Question } from 'src/question/entities/question.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, RelationId, UpdateDateColumn } from 'typeorm';
+import { toGlobalId } from 'graphql-relay';
+import { Node } from '../../nodes/models/node.entity';
 
-@ObjectType()
+
+@ObjectType({ implements: Node })
 @Entity()
-export class Answer {
-    @Field(() => Int)
-    @PrimaryGeneratedColumn()
-    answer_id: number;
+export class Answer implements Node {
+    @Field(() => String)
+    @PrimaryGeneratedColumn('uuid')
+    answer_id: string;
 
     @Field(() => Int)
     @Column()
@@ -21,9 +24,24 @@ export class Answer {
     @Column()
     answer_score: number;
 
+    @CreateDateColumn()
+    @Field(() => GraphQLISODateTime)
+    readonly createdAt: Date;
+
+    @UpdateDateColumn()
+    @Field(() => GraphQLISODateTime)
+    readonly updatedAt: Date;
+
     @Field(() => Question)
     @ManyToOne(() => Question, (question) => question.answers)
-    @JoinColumn({ name: "question_id" })
-    question: Promise<Question>
+    question: Question
+
+    @RelationId((answer: Answer) => answer.question)
+    question_id: string;
+
+    @Field(() => ID, { name: 'id' })
+    get relayId(): string {
+        return toGlobalId('Answer', this.answer_id);
+    }
 
 }

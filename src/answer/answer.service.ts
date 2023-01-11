@@ -1,6 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Question } from 'src/question/entities/question.entity';
-import { QuestionService } from 'src/question/question.service';
 import { Repository } from 'typeorm';
 import { CreateAnswerInput } from './dto/create-answer.input';
 import { UpdateAnswerInput } from './dto/update-answer.input';
@@ -12,31 +10,31 @@ export class AnswerService {
   constructor(
     @Inject('ANSWER_REPOSITORY')
     private answerRepository: Repository<Answer>,
-    private questionService: QuestionService
   ) { }
 
-  async create(createAnswerInput: CreateAnswerInput, question_id: number) {
-    const answer = new Answer();
-    answer.answer_number = createAnswerInput.answer_number;
-    answer.answer_item = createAnswerInput.answer_item;
-    answer.answer_score = createAnswerInput.answer_score;
-    const question = this.questionService.findById(question_id);
-    answer.question = question;
+
+  async create(data: CreateAnswerInput) {
+    const { question_id, ...restData } = data;
+    const answer = this.answerRepository.create({
+      ...restData,
+      question: { question_id: question_id },
+    });
     return await this.answerRepository.save(answer);
   }
+
 
   async findAll(question_id: number): Promise<Answer> {
     return {} as any;
   }
 
-  async findOne(answer_id: number) {
+  async findOne(answer_id: string) {
     return this.answerRepository.findOneBy({ answer_id });
   }
 
-  // async findAnswerByQuestionId(question_id: number) {
-  //   const question = this.questionService.findById( question_id );
-  //   return this.answerRepository.findOneBy(question)
-  // }
+
+  async findByIds(answer_id: string) {
+    return this.answerRepository.findBy({ answer_id });
+  }
 
   async update(id: number, updateAnswerInput: UpdateAnswerInput) {
     return `This action updates a #${id} answer`;
@@ -44,5 +42,13 @@ export class AnswerService {
 
   async remove(id: number): Promise<boolean> {
     return true;
+  }
+
+  // async findAllByQuestionId(question_Id: number): Promise<Answer[]> {
+  //   return (await this.answerRepository.find()).filter((answer) => answer.question_id === question_Id);
+  // }
+
+  async findOneById(answer_id: string): Promise<Answer | undefined> {
+    return await this.answerRepository.findOneBy({ answer_id });
   }
 }

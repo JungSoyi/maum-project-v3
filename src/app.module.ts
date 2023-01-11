@@ -3,15 +3,15 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { SurveyModule } from './survey/survey.module';
-import { join } from 'path';
 import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
-import { DataSource } from 'typeorm';
-import { DatabaseModule } from './database/database.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { NodesModules } from './nodes/nodes.module';
+
+
 
 @Module({
   imports: [
@@ -32,10 +32,18 @@ import { DirectiveLocation, GraphQLDirective } from 'graphql';
     }),
     SurveyModule,
     QuestionModule,
-    AnswerModule
+    AnswerModule,
+    NodesModules
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService
+    // AppService,
+    // {
+    //   // provide: APP_INTERCEPTOR,
+    //   // useClass: DataLoaderInterceptor,
+    // }
+  ],
 })
 export class AppModule {
 
