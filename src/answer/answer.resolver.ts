@@ -33,20 +33,11 @@ export class AnswerResolver {
     }
 
 
-    // @Mutation(() => [Answer])
-    // createAnswers(@Args('createAnswerInput') createAnswerInput: CreateAnswerInput, @Args({ name: 'question_Id', type: () => Int }) question_Id: number) {
-    //     return this.answerService.create(createAnswerInput, question_Id);
-    // }
-
-    @Query(() => [Answer], { name: 'findAnswers' })
-    findAll(question_id: number) {
-        return this.answerService.findAll(question_id);
+    @Query((_returns) => [Answer])
+    async getAnswers() {
+        return await this.answerService.findAll();
     }
 
-    // @Query(() => Answer, { name: 'findAnswerById' })
-    // findOne(@Args('id', { type: () => Int }) id: number) {
-    //     return this.answerService.findOne(id);
-    // }
 
     @Mutation(() => Answer)
     updateAnswer(@Args('updateAnswerInput') updateAnswerInput: UpdateAnswerInput) {

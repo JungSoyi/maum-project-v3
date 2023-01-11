@@ -86,7 +86,7 @@ type Query {
   survey(id: Int!): Survey!
   findQuestions: [Question!]!
   findQuestionById(id: String!): Question!
-  findAnswers: [Answer!]!
+  getAnswers: [Answer!]!
   node(id: ID!): Node
 }
 

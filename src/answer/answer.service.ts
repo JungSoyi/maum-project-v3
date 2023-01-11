@@ -23,8 +23,8 @@ export class AnswerService {
   }
 
 
-  async findAll(question_id: number): Promise<Answer> {
-    return {} as any;
+  async findAll() {
+    return this.answerRepository.find();
   }
 
   async findOne(answer_id: string) {
@@ -44,9 +44,6 @@ export class AnswerService {
     return true;
   }
 
-  // async findAllByQuestionId(question_Id: number): Promise<Answer[]> {
-  //   return (await this.answerRepository.find()).filter((answer) => answer.question_id === question_Id);
-  // }
 
   async findOneById(answer_id: string): Promise<Answer | undefined> {
     return await this.answerRepository.findOneBy({ answer_id });
