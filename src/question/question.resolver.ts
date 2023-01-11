@@ -1,13 +1,16 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { QuestionService } from './question.service';
 import { Question } from './entities/question.entity';
 import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
 import { NotFoundException } from '@nestjs/common';
+import { AnswerService } from 'src/answer/answer.service';
+import { Answer } from 'src/answer/entities/answer.entity';
 
 @Resolver(() => Question)
 export class QuestionResolver {
-  constructor(private readonly questionService: QuestionService
+  constructor(private readonly questionService: QuestionService,
+    // private answerService: AnswerService
   ) { }
 
   @Mutation(() => Question)
@@ -39,4 +42,9 @@ export class QuestionResolver {
   removeQuestion(@Args('id', { type: () => Int }) id: number) {
     return this.questionService.remove(id);
   }
+
+  // @ResolveField((of) => [Answer])
+  // public answers(@Parent() question: Question): Promise<Answer[]> {
+  //   return this.answerService.findAllByQuestionId(question.question_id);
+  // }
 }

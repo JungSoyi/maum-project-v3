@@ -5,6 +5,7 @@ import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, } from '
 @ObjectType()
 @Entity()
 export class Question {
+
   @Field(() => Int)
   @PrimaryGeneratedColumn()
   question_id: number;
@@ -17,8 +18,10 @@ export class Question {
   @Column()
   question_item: string;
 
+
   @Field(() => [Answer], { nullable: true })
   @OneToMany(() => Answer, (answer) => answer.question, { cascade: true })
   @JoinColumn({ name: "answer_id" })
   answers?: Answer[];
+  answer_id: number;
 }

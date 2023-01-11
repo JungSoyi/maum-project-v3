@@ -10,6 +10,7 @@ type Answer {
   answer_item: String!
   answer_score: Int!
   question: Question!
+  question_id: Float!
 }
 
 type Question {
@@ -17,6 +18,7 @@ type Question {
   question_number: Int!
   question_item: String!
   answers: [Answer!]
+  answer_id: Float!
 }
 
 type Survey {
