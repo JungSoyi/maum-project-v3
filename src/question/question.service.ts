@@ -54,10 +54,10 @@ export class QuestionService {
   //   return question_id.map((question_id) => this.answer.filter((a) => a.question_id === question_id))
   // }
 
-  async findByAnswerId(answer_id: number): Promise<Question[]> {
-    let questions = this.questionRepository.find();
-    return (await questions).filter((question) => question.answer_id === (answer_id));
-  }
+  // async findByAnswerId(answer_id: number): Promise<Question[]> {
+  //   let questions = this.questionRepository.find();
+  //   return (await questions).filter((question) => question.answer_id === (answer_id));
+  // }
 
 
 }

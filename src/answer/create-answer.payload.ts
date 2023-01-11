@@ -3,6 +3,6 @@ import { AnswerEdge } from "./connection-types";
 
 @ObjectType()
 export class CreateAnswerPayload {
-    @Field((_type) => AnswerEdge)
+    @Field(() => AnswerEdge)
     answerEdge: AnswerEdge;
 }

@@ -2,10 +2,11 @@ import { ObjectType, Field, Int, ID, } from '@nestjs/graphql';
 import { Answer } from 'src/answer/entities/answer.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, } from 'typeorm';
 import { toGlobalId } from 'graphql-relay';
+import { Node } from 'src/nodes/models/node.entity';
 
-@ObjectType()
+@ObjectType({ implements: Node })
 @Entity()
-export class Question {
+export class Question implements Node {
 
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
@@ -27,9 +28,8 @@ export class Question {
 
   @Field(() => [Answer], { nullable: true })
   @OneToMany(() => Answer, (answer) => answer.question, { cascade: true })
-  @JoinColumn({ name: "answer_id" })
-  answers?: Answer[];
-  answer_id: number;
+  // @JoinColumn({ name: "answer_id" })
+  answers: Answer[];
 
   @Field(() => ID, { name: 'id' })
   get relayId(): string {

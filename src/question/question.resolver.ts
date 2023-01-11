@@ -5,18 +5,23 @@ import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
 import { NotFoundException } from '@nestjs/common';
 import { Answer } from 'src/answer/entities/answer.entity';
+import { CreateQuestionPayload } from './create-question.payload';
 
 @Resolver(() => Question)
 export class QuestionResolver {
   constructor(private readonly questionService: QuestionService
   ) { }
 
-  @Mutation(() => Question)
-  createQuestion(@Args('createQuestionInput') createQuestionInput: CreateQuestionInput
-  ) {
-    return this.questionService.create(createQuestionInput);
-  }
 
+  @Mutation((_returns) => CreateQuestionPayload)
+  async createQuestion(
+    @Args('data') data: CreateQuestionInput,
+  ): Promise<CreateQuestionPayload> {
+    const question = await this.questionService.create(data);
+    return {
+      questionEdge: { node: question, cursor: 'temp:${question.relayId' },
+    };
+  }
   @Query(() => [Question], { name: 'findQuestions' })
   findAll() {
     return this.questionService.findAll();

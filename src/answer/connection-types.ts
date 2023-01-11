@@ -7,7 +7,7 @@ export class AnswerEdge extends EdgeType(Answer) { }
 
 @ObjectType()
 class AggregateAnswer {
-    @Field(() => Int)
+    @Field(() => Number)
     count: number;
 }
 

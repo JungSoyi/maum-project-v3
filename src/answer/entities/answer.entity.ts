@@ -8,7 +8,7 @@ import { Node } from '../../nodes/models/node.entity';
 @ObjectType({ implements: Node })
 @Entity()
 export class Answer implements Node {
-    @Field()
+    @Field(() => String)
     @PrimaryGeneratedColumn('uuid')
     answer_id: string;
 
@@ -34,7 +34,6 @@ export class Answer implements Node {
 
     @Field(() => Question)
     @ManyToOne(() => Question, (question) => question.answers)
-    @JoinColumn({ name: "question_id" })
     question: Question
 
     @RelationId((answer: Answer) => answer.question)
