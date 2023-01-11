@@ -10,7 +10,7 @@ import { Node } from '../../nodes/models/node.entity';
 export class Answer implements Node {
     @Field(() => String)
     @PrimaryGeneratedColumn('uuid')
-    answer_id: string;
+    id: string;
 
     @Field(() => Int)
     @Column()
@@ -41,7 +41,7 @@ export class Answer implements Node {
 
     @Field(() => ID, { name: 'id' })
     get relayId(): string {
-        return toGlobalId('Answer', this.answer_id);
+        return toGlobalId('Answer', this.id);
     }
 
 }

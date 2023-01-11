@@ -10,7 +10,6 @@ interface Node {
 
 type Answer implements Node {
   id: ID!
-  answer_id: String!
   answer_number: Int!
   answer_item: String!
   answer_score: Int!
@@ -98,7 +97,7 @@ type Mutation {
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
   removeQuestion(id: Int!): Question!
   createAnswer(data: CreateAnswerInput!): CreateAnswerPayload!
-  updateAnswer(updateAnswerInput: UpdateAnswerInput!): Answer!
+  updateAnswer(data: UpdateAnswerInput!, where: AnswerWhereUniqueInput!): Answer
   removeAnswer(id: Int!): Answer!
 }
 
@@ -136,5 +135,8 @@ input UpdateAnswerInput {
   answer_item: String
   answer_score: Int
   question_id: String
-  id: Int!
+}
+
+input AnswerWhereUniqueInput {
+  id: ID!
 }

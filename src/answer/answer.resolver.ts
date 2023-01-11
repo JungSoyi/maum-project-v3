@@ -7,6 +7,7 @@ import { Question } from 'src/question/entities/question.entity';
 import { CreateAnswerPayload } from './create-answer.payload';
 import * as Relay from 'graphql-relay';
 import { QuestionService } from 'src/question/question.service';
+import { AnswerWhereUniqueInput } from './dto/answer-where-unique.input';
 
 
 @Resolver(() => Answer)
@@ -39,9 +40,12 @@ export class AnswerResolver {
     }
 
 
-    @Mutation(() => Answer)
-    updateAnswer(@Args('updateAnswerInput') updateAnswerInput: UpdateAnswerInput) {
-        return this.answerService.update(updateAnswerInput.id, updateAnswerInput);
+    @Mutation((_returns) => Answer, { nullable: true })
+    async updateAnswer(
+        @Args('data') data: UpdateAnswerInput,
+        @Args('where') where: AnswerWhereUniqueInput,
+    ): Promise<Answer | undefined> {
+        return await this.answerService.update(data, where);
     }
 
     @Mutation(() => Answer)

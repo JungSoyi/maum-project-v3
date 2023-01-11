@@ -1,8 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
+import { isUUID } from 'class-validator';
 import { Repository } from 'typeorm';
+import { AnswerWhereUniqueInput } from './dto/answer-where-unique.input';
 import { CreateAnswerInput } from './dto/create-answer.input';
 import { UpdateAnswerInput } from './dto/update-answer.input';
 import { Answer } from './entities/answer.entity';
+import * as Relay from 'graphql-relay';
+
 
 @Injectable()
 export class AnswerService {
@@ -27,17 +32,22 @@ export class AnswerService {
     return this.answerRepository.find();
   }
 
-  async findOne(answer_id: string) {
-    return this.answerRepository.findOneBy({ answer_id });
-  }
+  async update(
+    data: UpdateAnswerInput,
+    where: AnswerWhereUniqueInput
+  ): Promise<Answer | undefined> {
+    const parsedAnswerId = Relay.fromGlobalId(where.id);
+    const id = where.id;
+    if (!where.id) {
+      return undefined;
+    }
+    const answer = await this.answerRepository.findOne({ where: { id: id } });
+    if (!Answer) {
+      return answer;
+    }
+    this.answerRepository.merge(answer, data);
+    return await this.answerRepository.save(answer);
 
-
-  async findByIds(answer_id: string) {
-    return this.answerRepository.findBy({ answer_id });
-  }
-
-  async update(id: number, updateAnswerInput: UpdateAnswerInput) {
-    return `This action updates a #${id} answer`;
   }
 
   async remove(id: number): Promise<boolean> {
@@ -45,7 +55,7 @@ export class AnswerService {
   }
 
 
-  async findOneById(answer_id: string): Promise<Answer | undefined> {
-    return await this.answerRepository.findOneBy({ answer_id });
+  async findOneById(id: string): Promise<Answer | undefined> {
+    return await this.answerRepository.findOneBy({ id });
   }
 }
