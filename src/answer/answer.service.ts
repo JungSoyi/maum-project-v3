@@ -22,7 +22,7 @@ export class AnswerService {
     const { question_id, ...restData } = data;
     const answer = this.answerRepository.create({
       ...restData,
-      question: { question_id: question_id },
+      question: { id: question_id },
     });
     return await this.answerRepository.save(answer);
   }
@@ -36,7 +36,6 @@ export class AnswerService {
     data: UpdateAnswerInput,
     where: AnswerWhereUniqueInput
   ): Promise<Answer | undefined> {
-    const parsedAnswerId = Relay.fromGlobalId(where.id);
     const id = where.id;
     if (!where.id) {
       return undefined;

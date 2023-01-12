@@ -26,7 +26,6 @@ scalar DateTime
 
 type Question implements Node {
   id: ID!
-  question_id: String!
   question_number: Int!
   question_item: String!
   answers: [Answer!]
@@ -94,7 +93,7 @@ type Mutation {
   updateSurvey(updateSurveyInput: UpdateSurveyInput!): Survey!
   removeSurvey(id: Int!): Survey!
   createQuestion(data: CreateQuestionInput!): CreateQuestionPayload!
-  updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
+  updateQuestion(data: UpdateQuestionInput!, where: QuestionWhereUniqueInput!): Question
   removeQuestion(id: Int!): Question!
   createAnswer(data: CreateAnswerInput!): CreateAnswerPayload!
   updateAnswer(data: UpdateAnswerInput!, where: AnswerWhereUniqueInput!): Answer
@@ -120,7 +119,10 @@ input CreateQuestionInput {
 input UpdateQuestionInput {
   question_item: String
   question_number: Int
-  id: Int!
+}
+
+input QuestionWhereUniqueInput {
+  id: ID!
 }
 
 input CreateAnswerInput {
