@@ -5,10 +5,11 @@ import { surveyProviders } from './survey.providers';
 import { DatabaseModule } from 'src/database/database.module';
 import { QuestionService } from 'src/question/question.service';
 import { questionProviders } from 'src/question/question.providers';
-import { LoggerModule } from 'src/common/logger.module';
+import { LoggerModule } from 'src/common/log/logger.module';
+import { InputValidationError } from 'src/common/input-validator-error';
 
 @Module({
   imports: [DatabaseModule, LoggerModule],
-  providers: [SurveyResolver, SurveyService, ...surveyProviders, QuestionService, ...questionProviders],
+  providers: [SurveyResolver, SurveyService, ...surveyProviders, QuestionService, ...questionProviders, InputValidationError],
 })
 export class SurveyModule { }

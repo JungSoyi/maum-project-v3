@@ -8,7 +8,7 @@ import { CreateAnswerPayload } from './create-answer.payload';
 import * as Relay from 'graphql-relay';
 import { QuestionService } from 'src/question/question.service';
 import { AnswerWhereUniqueInput } from './dto/answer-where-unique.input';
-import { MyLogger } from 'src/common/logger';
+import { MyLogger } from 'src/common/log/logger';
 
 
 @Resolver(() => Answer)

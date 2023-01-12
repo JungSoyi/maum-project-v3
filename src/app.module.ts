@@ -10,7 +10,7 @@ import { AnswerModule } from './answer/answer.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { NodesModules } from './nodes/nodes.module';
-import { LoggerModule } from './common/logger.module';
+import { LoggerModule } from './common/log/logger.module';
 
 
 
