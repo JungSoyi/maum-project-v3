@@ -4,14 +4,20 @@ import { Survey } from './entities/survey.entity';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
 import { NotFoundException } from '@nestjs/common';
+import { CreateSurveyPayload } from './entities/create-survey.payload';
 
 @Resolver(of => Survey)
 export class SurveyResolver {
   constructor(private readonly surveyService: SurveyService) { }
 
-  @Mutation(() => Survey)
-  createSurvey(@Args('createSurveyInput') createSurveyInput: CreateSurveyInput) {
-    return this.surveyService.create(createSurveyInput);
+  @Mutation((_returns) => CreateSurveyPayload)
+  async createSurvey(
+    @Args('data') data: CreateSurveyInput,
+  ): Promise<CreateSurveyPayload> {
+    const survey = await this.surveyService.create(data);
+    return {
+      surveyEdge: { node: survey, cursor: 'temp:${survey.relayId' },
+    };
   }
 
   @Query(() => [Survey], { name: 'survey' })

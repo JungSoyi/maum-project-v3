@@ -3,6 +3,9 @@ import { Repository } from 'typeorm';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
 import { Survey } from './entities/survey.entity';
+import { isUUID } from 'class-validator';
+import * as Relay from 'graphql-relay';
+
 
 @Injectable()
 export class SurveyService {
@@ -12,8 +15,12 @@ export class SurveyService {
     private surveyRepository: Repository<Survey>,
   ) { }
 
-  create(createSurveyInput: CreateSurveyInput) {
-    return 'This action adds a new survey';
+  async create(createSurveyInput: CreateSurveyInput) {
+    const survey = new Survey();
+    survey.survey_number = createSurveyInput.survey_number;
+    survey.total_score = 0;
+
+    return this.surveyRepository.save(survey);
   }
 
   findAll() {

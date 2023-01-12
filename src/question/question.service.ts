@@ -3,8 +3,6 @@ import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
 import { Question } from './entities/question.entity';
 import { Repository } from 'typeorm';
-import { AnswerService } from 'src/answer/answer.service';
-import { Answer } from 'src/answer/entities/answer.entity';
 import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
 import { isUUID } from 'class-validator';
 import * as Relay from 'graphql-relay';

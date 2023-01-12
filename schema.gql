@@ -55,6 +55,17 @@ type PageInfo {
   hasPreviousPage: Boolean
 }
 
+type SurveyEdge {
+  node: Survey!
+
+  """Used in `before` and `after` args"""
+  cursor: String!
+}
+
+type CreateSurveyPayload {
+  surveyEdge: SurveyEdge!
+}
+
 type QuestionEdge {
   node: Question!
 
@@ -91,7 +102,7 @@ type Query {
 }
 
 type Mutation {
-  createSurvey(createSurveyInput: CreateSurveyInput!): Survey!
+  createSurvey(data: CreateSurveyInput!): CreateSurveyPayload!
   updateSurvey(updateSurveyInput: UpdateSurveyInput!): Survey!
   removeSurvey(id: Int!): Survey!
   createQuestion(data: CreateQuestionInput!): CreateQuestionPayload!
@@ -103,13 +114,11 @@ type Mutation {
 }
 
 input CreateSurveyInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  survey_number: Int!
 }
 
 input UpdateSurveyInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  survey_number: Int
   id: Int!
 }
 
