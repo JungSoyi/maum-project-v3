@@ -48,7 +48,14 @@ export class SurveyService {
     return await this.surveyRepository.save(survey);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} survey`;
+  async remove(id: string) {
+    if (!isUUID(id)) {
+      return undefined;
+    }
+    const survey = await this.surveyRepository.findOne({ where: { id: id } });
+    if (!survey) {
+      return survey;
+    }
+    return this.surveyRepository.remove(survey);
   }
 }
