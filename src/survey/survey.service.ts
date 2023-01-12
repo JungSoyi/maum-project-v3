@@ -24,8 +24,8 @@ export class SurveyService {
     return this.surveyRepository.save(survey);
   }
 
-  findAll() {
-    return `This action returns all survey`;
+  findAll(): Promise<Survey[]> {
+    return this.surveyRepository.find();
   }
 
   findOneById(id: string) {

@@ -93,7 +93,7 @@ type CreateAnswerPayload {
 }
 
 type Query {
-  survey: [Survey!]!
+  findSurveys: [Survey!]!
   findSurveyById(id: String!): Survey!
   findQuestions: [Question!]!
   findQuestionById(id: String!): Question!

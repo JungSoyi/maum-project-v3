@@ -21,7 +21,7 @@ export class SurveyResolver {
     };
   }
 
-  @Query(() => [Survey], { name: 'survey' })
+  @Query(() => [Survey], { name: 'findSurveys' })
   findAll() {
     return this.surveyService.findAll();
   }
