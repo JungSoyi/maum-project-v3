@@ -23,10 +23,10 @@ export class AnswerResolver {
         @Args('data') data: CreateAnswerInput,
     ): Promise<CreateAnswerPayload> {
         const { question_id, ...rest } = data;
-        // const databaseQuestionId = Relay.fromGlobalId(question_id).id;
+        const databaseQuestionId = Relay.fromGlobalId(question_id).id;
         const createdAnswer = await this.answerService.create({
             ...rest,
-            question_id: question_id,
+            question_id: databaseQuestionId,
         });
         return {
             answerEdge: { node: createdAnswer, cursor: `temp:${createdAnswer.relayId}` },
