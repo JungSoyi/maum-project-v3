@@ -10,6 +10,7 @@ import { AnswerModule } from './answer/answer.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { NodesModules } from './nodes/nodes.module';
+import { LoggerModule } from './common/logger.module';
 
 
 
@@ -28,16 +29,21 @@ import { NodesModules } from './nodes/nodes.module';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
-      // autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     SurveyModule,
     QuestionModule,
     AnswerModule,
-    NodesModules
+    NodesModules,
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [
     AppService
+    // AppService,
+    // {
+    //   // provide: APP_INTERCEPTOR,
+    //   // useClass: DataLoaderInterceptor,
+    // }
   ],
 })
 export class AppModule {

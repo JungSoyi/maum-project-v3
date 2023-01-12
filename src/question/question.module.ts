@@ -3,10 +3,11 @@ import { QuestionService } from './question.service';
 import { QuestionResolver } from './question.resolver';
 import { DatabaseModule } from 'src/database/database.module';
 import { questionProviders } from './question.providers';
+import { LoggerModule } from 'src/common/logger.module';
 
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, LoggerModule],
   providers: [QuestionResolver, QuestionService, ...questionProviders],
 })
 export class QuestionModule { }

@@ -7,9 +7,10 @@ import { QuestionModule } from 'src/question/question.module';
 import { QuestionService } from 'src/question/question.service';
 import { questionProviders } from 'src/question/question.providers';
 import { NodesModules } from 'src/nodes/nodes.module';
+import { LoggerModule } from 'src/common/logger.module';
 
 @Module({
-    imports: [DatabaseModule, QuestionModule],
+    imports: [DatabaseModule, QuestionModule, LoggerModule],
     providers: [AnswerResolver, AnswerService, ...answerProviders, QuestionService, ...questionProviders]
 })
 export class AnswerModule { }
