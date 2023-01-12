@@ -56,8 +56,15 @@ export class QuestionService {
     return await this.questionRepository.save(question);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} question`;
+  async remove(id: string) {
+    if (!isUUID(id)) {
+      return undefined;
+    }
+    const question = await this.questionRepository.findOne({ where: { id: id } });
+    if (!question) {
+      return question;
+    }
+    return this.questionRepository.remove(question);
   }
 
   // findAnswers = async (question_id) => {

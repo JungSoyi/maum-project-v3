@@ -47,7 +47,7 @@ export class QuestionResolver {
   }
 
   @Mutation(() => Question)
-  removeQuestion(@Args('id', { type: () => Int }) id: number) {
+  async removeQuestion(@Args('id') id: string) {
     return this.questionService.remove(id);
   }
 
