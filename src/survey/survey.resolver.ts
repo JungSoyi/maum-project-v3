@@ -3,6 +3,7 @@ import { SurveyService } from './survey.service';
 import { Survey } from './entities/survey.entity';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(of => Survey)
 export class SurveyResolver {
@@ -18,9 +19,14 @@ export class SurveyResolver {
     return this.surveyService.findAll();
   }
 
-  @Query(() => Survey, { name: 'survey' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.surveyService.findOne(id);
+
+  @Query(() => Survey, { name: 'findSurveyById' })
+  async findOneById(@Args('id', { type: () => String }) id: string) {
+    const survey = await this.surveyService.findOneById(id);
+    if (!survey) {
+      throw new NotFoundException(id)
+    }
+    return survey;
   }
 
   @Mutation(() => Survey)

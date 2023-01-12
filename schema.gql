@@ -29,6 +29,7 @@ type Question implements Node {
   question_number: Int!
   question_item: String!
   answers: [Answer!]
+  survey: Survey!
   createdAt: Timestamp!
   updatedAt: Timestamp!
 }
@@ -38,13 +39,13 @@ type Question implements Node {
 """
 scalar Timestamp
 
-type Survey {
-  """survey id"""
-  survey_id: Int!
-  created_at: Timestamp!
-  updated_at: Timestamp!
+type Survey implements Node {
+  id: ID!
+  survey_number: Int!
   total_score: Int!
-  questions: [Question!]!
+  questions: [Question!]
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
 }
 
 type PageInfo {
@@ -81,7 +82,8 @@ type CreateAnswerPayload {
 }
 
 type Query {
-  survey(id: Int!): Survey!
+  survey: [Survey!]!
+  findSurveyById(id: String!): Survey!
   findQuestions: [Question!]!
   findQuestionById(id: String!): Question!
   getAnswers: [Answer!]!

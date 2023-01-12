@@ -17,7 +17,6 @@ export class QuestionService {
   constructor(
     @Inject('QUESTION_REPOSITORY')
     private questionRepository: Repository<Question>,
-    // private answerService: AnswerService
   ) { }
 
 

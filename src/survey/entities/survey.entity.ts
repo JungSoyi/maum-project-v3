@@ -1,6 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Question } from 'src/question/entities/question.entity';
-import { CreateDateColumn, Entity, OneToMany, UpdateDateColumn } from 'typeorm';
+import { CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Node } from 'src/nodes/models/node.entity';
+import { toGlobalId } from 'graphql-relay';
+
 /**
  * survey_id : number
  * created_at : LocalDateTime
@@ -10,7 +13,9 @@ import { CreateDateColumn, Entity, OneToMany, UpdateDateColumn } from 'typeorm';
 @ObjectType({ implements: Node })
 @Entity()
 export class Survey implements Node {
+
   @Field(() => String)
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Field(() => Int)
@@ -28,4 +33,9 @@ export class Survey implements Node {
   @Field(() => [Question], { nullable: true })
   @OneToMany(() => Question, (question) => question.survey, { eager: true })
   questions: Question[];
+
+  @Field(() => ID, { name: 'id' })
+  get relayId(): string {
+    return toGlobalId('Survey', this.id);
+  }
 }
