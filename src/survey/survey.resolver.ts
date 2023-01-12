@@ -3,11 +3,12 @@ import { SurveyService } from './survey.service';
 import { Survey } from './entities/survey.entity';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
-import { NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateSurveyPayload } from './entities/create-survey.payload';
 import { SurveyWhereUniqueInput } from './dto/survey-where-unique.input';
 import { MyLogger } from 'src/common/log/logger';
-import { InputValidationError } from 'src/common/input-validator-error';
+import { InputValidationError, InvalidServerError } from 'src/common/input-validator-error';
+import { HttpExceptionFilter } from 'src/common/http-exception.filter';
 
 @Resolver(of => Survey)
 export class SurveyResolver {
@@ -42,9 +43,6 @@ export class SurveyResolver {
         "Invalid survey Id", "find survey"
       )
     }
-    // if (!survey) {
-    //   throw new NotFoundException(id)
-    // }
     const survey = await this.surveyService.findOneById(id);
 
     if (survey.total_score == 0) {
@@ -60,12 +58,24 @@ export class SurveyResolver {
     @Args('where') where: SurveyWhereUniqueInput,
   ): Promise<Survey | undefined> {
     this.logger.log('update a Survey');
+    try {
+      this.surveyService.findOneById(where.id);
+    } catch (error) {
+      throw new InputValidationError(
+        "Invalid survey Id", "update survey"
+      )
+    }
     return await this.surveyService.update(data, where);
   }
 
   @Mutation(() => Survey)
   removeSurvey(@Args('id') id: string) {
     this.logger.log('delete a Survey');
+    try {
+      this.surveyService.findOneById(id);
+    } catch {
+      throw HttpExceptionFilter;
+    }
     return this.surveyService.remove(id);
   }
 }
