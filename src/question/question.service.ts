@@ -31,6 +31,7 @@ export class QuestionService {
   }
 
   findAll(): Promise<Question[]> {
+    console.log("start find all questions");
     return this.questionRepository.find();
   }
 
@@ -65,4 +66,25 @@ export class QuestionService {
     return this.questionRepository.remove(question);
   }
 
+  /**
+   * 답변 중 answer_status=true 이면 그 answer_score를 반환
+   */
+  async pickAnswer(id: string) {
+    console.log('start pickAnswer');
+    if (!isUUID(id)) {
+      return undefined;
+    }
+    const question = await this.questionRepository.findOne({ where: { id: id } });
+    for (var i = 0; question.answers.length < i; i++) {
+      if (question.answers[i].answer_status == true) {
+        console.log('question.pick_answer: ', question.pick_answer)
+        console.log('i: %d', i);
+        question.pick_answer = i;
+        console.log('question.pick_answer: ', question.pick_answer)
+        question.pick_answer_score = question.answers[i].answer_score;
+      }
+    }
+    this.questionRepository.merge(question,)
+    return true;
+  }
 }

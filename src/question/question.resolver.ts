@@ -7,8 +7,6 @@ import { NotFoundException } from '@nestjs/common';
 import { Answer } from 'src/answer/entities/answer.entity';
 import { CreateQuestionPayload } from './create-question.payload';
 import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
-import * as Relay from 'graphql-relay';
-
 
 @Resolver(() => Question)
 export class QuestionResolver {
@@ -20,14 +18,9 @@ export class QuestionResolver {
   async createQuestion(
     @Args('data') data: CreateQuestionInput,
   ): Promise<CreateQuestionPayload> {
-    const { survey_id, ...restData } = data;
-    const databaseSurveyId = Relay.fromGlobalId(survey_id).id;
-    const createdQuestion = await this.questionService.create({
-      ...restData,
-      survey_id: databaseSurveyId,
-    });
+    const question = await this.questionService.create(data);
     return {
-      questionEdge: { node: createdQuestion, cursor: `temp:${createdQuestion.relayId}` },
+      questionEdge: { node: question, cursor: 'temp:${question.relayId' },
     };
   }
   @Query(() => [Question], { name: 'findQuestions' })
@@ -57,6 +50,8 @@ export class QuestionResolver {
   async removeQuestion(@Args('id') id: string) {
     return this.questionService.remove(id);
   }
+
+
 
 
 }

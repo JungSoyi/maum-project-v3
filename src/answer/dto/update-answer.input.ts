@@ -14,4 +14,8 @@ export class UpdateAnswerInput {
 
   @Field({ nullable: true })
   question_id: string;
+
+  @Field({ nullable: true })
+  answer_status: boolean;
+
 }

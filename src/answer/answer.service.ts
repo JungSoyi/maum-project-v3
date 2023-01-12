@@ -64,4 +64,9 @@ export class AnswerService {
   async findOneById(id: string): Promise<Answer | undefined> {
     return await this.answerRepository.findOneBy({ id });
   }
+
+
+  /**
+   * answer_status가 true이면 total_score+answer_score 한다. -> 논블로킹?
+   */
 }

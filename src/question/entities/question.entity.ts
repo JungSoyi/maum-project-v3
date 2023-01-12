@@ -21,6 +21,14 @@ export class Question implements Node {
   @Column()
   question_item: string;
 
+  @Field(() => Int, { defaultValue: null })
+  @Column({ nullable: true })
+  pick_answer: number
+
+  @Field(() => Int, { defaultValue: null })
+  @Column({ nullable: true })
+  pick_answer_score: number
+
   @CreateDateColumn()
   readonly createdAt: Date;
 

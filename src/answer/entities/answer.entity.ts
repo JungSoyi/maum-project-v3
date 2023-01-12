@@ -24,6 +24,10 @@ export class Answer implements Node {
     @Column()
     answer_score: number;
 
+    @Field(() => Boolean, { defaultValue: false })
+    @Column({ nullable: true }) //db초기화 후 nullable 삭제
+    answer_status: boolean;
+
     @CreateDateColumn()
     @Field(() => GraphQLISODateTime)
     readonly createdAt: Date;
