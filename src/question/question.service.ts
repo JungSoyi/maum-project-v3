@@ -7,6 +7,8 @@ import { AnswerService } from 'src/answer/answer.service';
 import { Answer } from 'src/answer/entities/answer.entity';
 import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
 import { isUUID } from 'class-validator';
+import * as Relay from 'graphql-relay';
+
 
 
 @Injectable()
@@ -32,10 +34,6 @@ export class QuestionService {
     return this.questionRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} question`;
-  }
-
   findOneById(id: string) {
     return this.questionRepository.findOneBy({ id });
   }
@@ -44,11 +42,11 @@ export class QuestionService {
     data: UpdateQuestionInput,
     where: QuestionWhereUniqueInput,
   ): Promise<Question | undefined> {
-    const Id = where.id;
-    if (!isUUID(where.id)) {
+    const parsedQuestionId = Relay.fromGlobalId(where.id);
+    if (!isUUID(parsedQuestionId.id)) {
       return undefined;
     }
-    const question = await this.questionRepository.findOne({ where: { id: Id } });
+    const question = await this.questionRepository.findOne({ where: parsedQuestionId });
     if (!question) {
       return question;
     }
@@ -66,19 +64,5 @@ export class QuestionService {
     }
     return this.questionRepository.remove(question);
   }
-
-  // findAnswers = async (question_id) => {
-  //   answers = await getAnswersByQuestionId(question_id)
-  //   answers.forEach((answer) => {
-  //     dataloaderDictionary.get('answer').clear(answer.id).prime(answer.id, item)
-  //   })
-  //   return question_id.map((question_id) => this.answer.filter((a) => a.question_id === question_id))
-  // }
-
-  // async findByAnswerId(answer_id: number): Promise<Question[]> {
-  //   let questions = this.questionRepository.find();
-  //   return (await questions).filter((question) => question.answer_id === (answer_id));
-  // }
-
 
 }
