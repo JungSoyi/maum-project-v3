@@ -33,6 +33,10 @@ export class SurveyResolver {
     if (!survey) {
       throw new NotFoundException(id)
     }
+    if (survey.total_score == 0) {
+      this.surveyService.sumScore(id);
+    }
+
     return survey;
   }
 

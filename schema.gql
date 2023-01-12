@@ -13,6 +13,7 @@ type Answer implements Node {
   answer_number: Int!
   answer_item: String!
   answer_score: Int!
+  answer_status: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
   question: Question!
@@ -28,6 +29,8 @@ type Question implements Node {
   id: ID!
   question_number: Int!
   question_item: String!
+  pick_answer: Int!
+  pick_answer_score: Int!
   answers: [Answer!]
   survey: Survey!
   createdAt: Timestamp!
@@ -154,6 +157,7 @@ input UpdateAnswerInput {
   answer_item: String
   answer_score: Int
   question_id: String
+  answer_status: Boolean
 }
 
 input AnswerWhereUniqueInput {
