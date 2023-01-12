@@ -49,8 +49,15 @@ export class AnswerService {
 
   }
 
-  async remove(id: number): Promise<boolean> {
-    return true;
+  async remove(id: string) {
+    if (!isUUID(id)) {
+      return undefined;
+    }
+    const answer = await this.answerRepository.findOne({ where: { id: id } });
+    if (!answer) {
+      return answer;
+    }
+    return this.answerRepository.remove(answer);
   }
 
 

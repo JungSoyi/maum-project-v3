@@ -97,7 +97,7 @@ type Mutation {
   removeQuestion(id: String!): Question!
   createAnswer(data: CreateAnswerInput!): CreateAnswerPayload!
   updateAnswer(data: UpdateAnswerInput!, where: AnswerWhereUniqueInput!): Answer
-  removeAnswer(id: Int!): Answer!
+  removeAnswer(id: String!): Answer!
 }
 
 input CreateSurveyInput {

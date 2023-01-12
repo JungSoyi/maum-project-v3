@@ -49,7 +49,7 @@ export class AnswerResolver {
     }
 
     @Mutation(() => Answer)
-    removeAnswer(@Args('id', { type: () => Int }) id: number) {
+    async removeAnswer(@Args('id') id: string) {
         return this.answerService.remove(id);
     }
 
