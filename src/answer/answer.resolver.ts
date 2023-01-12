@@ -8,12 +8,14 @@ import { CreateAnswerPayload } from './create-answer.payload';
 import * as Relay from 'graphql-relay';
 import { QuestionService } from 'src/question/question.service';
 import { AnswerWhereUniqueInput } from './dto/answer-where-unique.input';
+import { MyLogger } from 'src/common/logger';
 
 
 @Resolver(() => Answer)
 export class AnswerResolver {
     constructor(private readonly answerService: AnswerService,
-        private readonly questionService: QuestionService
+        private readonly questionService: QuestionService,
+        private readonly logger: MyLogger
     ) { }
 
 
@@ -22,6 +24,7 @@ export class AnswerResolver {
     async createAnswer(
         @Args('data') data: CreateAnswerInput,
     ): Promise<CreateAnswerPayload> {
+        this.logger.log(data);
         const { question_id, ...rest } = data;
         const databaseQuestionId = Relay.fromGlobalId(question_id).id;
         const createdAnswer = await this.answerService.create({
@@ -36,6 +39,7 @@ export class AnswerResolver {
 
     @Query((_returns) => [Answer])
     async getAnswers() {
+        this.logger.log('get Answers');
         return await this.answerService.findAll();
     }
 
@@ -45,11 +49,13 @@ export class AnswerResolver {
         @Args('data') data: UpdateAnswerInput,
         @Args('where') where: AnswerWhereUniqueInput,
     ): Promise<Answer | undefined> {
+        this.logger.log('update Answer');
         return await this.answerService.update(data, where);
     }
 
     @Mutation(() => Answer)
     async removeAnswer(@Args('id') id: string) {
+        this.logger.log('delete Answer')
         return this.answerService.remove(id);
     }
 
