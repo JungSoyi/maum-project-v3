@@ -27,7 +27,7 @@ export class Question implements Node {
   readonly updatedAt: Date;
 
   @Field(() => [Answer], { nullable: true })
-  @OneToMany(() => Answer, (answer) => answer.question, { cascade: true })
+  @OneToMany(() => Answer, (answer) => answer.question, { eager: true })
   // @JoinColumn({ name: "answer_id" })
   answers: Answer[];
 
