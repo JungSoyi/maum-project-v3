@@ -7,7 +7,7 @@ import { NotFoundException } from '@nestjs/common';
 import { Answer } from 'src/answer/entities/answer.entity';
 import { CreateQuestionPayload } from './create-question.payload';
 import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
-import { MyLogger } from 'src/common/logger';
+import { MyLogger } from 'src/common/log/logger';
 
 @Resolver(() => Question)
 export class QuestionResolver {

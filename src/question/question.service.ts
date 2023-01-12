@@ -25,7 +25,11 @@ export class QuestionService {
     const question = this.questionRepository.create({
       ...restData,
       survey: { id: survey_id },
+
     });
+    if (!survey_id) {
+      throw new Error("Survey not exist");
+    }
 
     return this.questionRepository.save(question);
 

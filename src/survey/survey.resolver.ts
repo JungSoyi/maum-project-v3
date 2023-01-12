@@ -6,7 +6,8 @@ import { UpdateSurveyInput } from './dto/update-survey.input';
 import { NotFoundException } from '@nestjs/common';
 import { CreateSurveyPayload } from './entities/create-survey.payload';
 import { SurveyWhereUniqueInput } from './dto/survey-where-unique.input';
-import { MyLogger } from 'src/common/logger';
+import { MyLogger } from 'src/common/log/logger';
+import { InputValidationError } from 'src/common/input-validator-error';
 
 @Resolver(of => Survey)
 export class SurveyResolver {
@@ -34,10 +35,18 @@ export class SurveyResolver {
   @Query(() => Survey, { name: 'findSurveyById' })
   async findOneById(@Args('id', { type: () => String }) id: string) {
     this.logger.log('find a Survey');
-    const survey = await this.surveyService.findOneById(id);
-    if (!survey) {
-      throw new NotFoundException(id)
+    try {
+      await this.surveyService.findOneById(id);
+    } catch (error) {
+      throw new InputValidationError(
+        "Invalid survey Id", "find survey"
+      )
     }
+    // if (!survey) {
+    //   throw new NotFoundException(id)
+    // }
+    const survey = await this.surveyService.findOneById(id);
+
     if (survey.total_score == 0) {
       this.surveyService.sumScore(id);
     }
