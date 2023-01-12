@@ -38,11 +38,6 @@ import { NodesModules } from './nodes/nodes.module';
   controllers: [AppController],
   providers: [
     AppService
-    // AppService,
-    // {
-    //   // provide: APP_INTERCEPTOR,
-    //   // useClass: DataLoaderInterceptor,
-    // }
   ],
 })
 export class AppModule {

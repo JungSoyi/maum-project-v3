@@ -6,10 +6,13 @@ import { DatabaseModule } from "src/database/database.module";
 import { QuestionModule } from "src/question/question.module";
 import { questionProviders } from "src/question/question.providers";
 import { QuestionService } from "src/question/question.service";
+import { SurveyModule } from "src/survey/survey.module";
+import { surveyProviders } from "src/survey/survey.providers";
+import { SurveyService } from "src/survey/survey.service";
 import { NodesResolvers } from "./nodes.resolvers";
 
 @Module({
-    imports: [AnswerModule, QuestionModule, DatabaseModule],
-    providers: [NodesResolvers, AnswerService, QuestionService, ...answerProviders, ...questionProviders],
+    imports: [AnswerModule, QuestionModule, DatabaseModule, SurveyModule],
+    providers: [NodesResolvers, AnswerService, QuestionService, SurveyService, ...answerProviders, ...questionProviders, ...surveyProviders],
 })
 export class NodesModules { }

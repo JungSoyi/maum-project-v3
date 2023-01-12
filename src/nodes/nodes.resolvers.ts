@@ -5,13 +5,15 @@ import { AnswerService } from "src/answer/answer.service";
 import { QuestionService } from "src/question/question.service";
 import { ParseUUIDPipe } from "@nestjs/common";
 import { Node } from "./models/node.entity";
+import { SurveyService } from "src/survey/survey.service";
 
 
 @Resolver()
 export class NodesResolvers {
     constructor(
         private readonly answerService: AnswerService,
-        private readonly questionService: QuestionService
+        private readonly questionService: QuestionService,
+        private readonly surveyService: SurveyService
     ) { }
 
     @Query((_returns) => Node, { nullable: true })
@@ -27,6 +29,8 @@ export class NodesResolvers {
                 return await this.answerService.findOneById(resolvedGlobalId.id);
             case 'Question':
                 return await this.questionService.findOneById(resolvedGlobalId.id);
+            case 'Survey':
+                return await this.surveyService.findOneById(resolvedGlobalId.id);
             default:
                 break;
         }
