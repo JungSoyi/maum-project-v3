@@ -7,7 +7,6 @@ export class MyLogger extends ConsoleLogger {
     }
 
     private doSomething() {
-        // 여기에 로깅에 관련된 부가 로직을 추가
 
     }
 

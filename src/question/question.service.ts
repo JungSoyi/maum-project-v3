@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
 import { isUUID } from 'class-validator';
 import * as Relay from 'graphql-relay';
-import { UpdateScoreInput } from './dto/update-score.input';
+import { SurveyService } from 'src/survey/survey.service';
 
 
 
@@ -71,9 +71,6 @@ export class QuestionService {
     return this.questionRepository.remove(question);
   }
 
-  /**
-   * 답변 중 answer_status=true 이면 그 answer_score를 반환
-   */
   async pickAnswer(id: string) {
     console.log('start pickAnswer');
     if (!isUUID(id)) {
@@ -93,4 +90,6 @@ export class QuestionService {
 
     return await this.questionRepository.save(question);
   }
+
+
 }

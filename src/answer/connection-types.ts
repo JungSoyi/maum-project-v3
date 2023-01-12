@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, ObjectType } from "@nestjs/graphql";
 import { ConnectionType, EdgeType } from "src/common/connection-paging";
 import { Answer } from "./entities/answer.entity";
 

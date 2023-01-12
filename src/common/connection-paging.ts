@@ -65,9 +65,7 @@ export class ConnectionArgs implements Relay.ConnectionArguments {
 
     @Field((_type) => Int, { nullable: true, description: 'Paginate last' })
     @ValidateIf((o) => o.last !== undefined)
-    // Required `before`. This is a weird corner case.
-    // We'd have to invert the ordering of query to get the last few items then re-invert it when emitting the results.
-    // We'll just ignore it for now.
+
     @Validate(CannotUseWithout, ['before'])
     // @Validate(CannotUseWith, ['after', 'first'])
     @Min(1)

@@ -6,7 +6,6 @@ import { answerProviders } from './answer.providers';
 import { QuestionModule } from 'src/question/question.module';
 import { QuestionService } from 'src/question/question.service';
 import { questionProviders } from 'src/question/question.providers';
-import { NodesModules } from 'src/nodes/nodes.module';
 import { LoggerModule } from 'src/common/log/logger.module';
 
 @Module({

@@ -1,12 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { isUUID } from 'class-validator';
 import { Repository } from 'typeorm';
 import { AnswerWhereUniqueInput } from './dto/answer-where-unique.input';
 import { CreateAnswerInput } from './dto/create-answer.input';
 import { UpdateAnswerInput } from './dto/update-answer.input';
 import { Answer } from './entities/answer.entity';
-import * as Relay from 'graphql-relay';
 
 
 @Injectable()
