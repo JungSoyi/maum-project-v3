@@ -28,7 +28,6 @@ export class Question implements Node {
 
   @Field(() => [Answer], { nullable: true })
   @OneToMany(() => Answer, (answer) => answer.question, { eager: true })
-  // @JoinColumn({ name: "answer_id" })
   answers: Answer[];
 
   @Field(() => ID, { name: 'id' })
