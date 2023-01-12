@@ -103,7 +103,7 @@ type Query {
 
 type Mutation {
   createSurvey(data: CreateSurveyInput!): CreateSurveyPayload!
-  updateSurvey(updateSurveyInput: UpdateSurveyInput!): Survey!
+  updateSurvey(data: UpdateSurveyInput!, where: SurveyWhereUniqueInput!): Survey
   removeSurvey(id: Int!): Survey!
   createQuestion(data: CreateQuestionInput!): CreateQuestionPayload!
   updateQuestion(data: UpdateQuestionInput!, where: QuestionWhereUniqueInput!): Question
@@ -119,7 +119,10 @@ input CreateSurveyInput {
 
 input UpdateSurveyInput {
   survey_number: Int
-  id: Int!
+}
+
+input SurveyWhereUniqueInput {
+  id: ID!
 }
 
 input CreateQuestionInput {

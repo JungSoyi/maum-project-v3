@@ -5,6 +5,7 @@ import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
 import { NotFoundException } from '@nestjs/common';
 import { CreateSurveyPayload } from './entities/create-survey.payload';
+import { SurveyWhereUniqueInput } from './dto/survey-where-unique.input';
 
 @Resolver(of => Survey)
 export class SurveyResolver {
@@ -35,9 +36,12 @@ export class SurveyResolver {
     return survey;
   }
 
-  @Mutation(() => Survey)
-  updateSurvey(@Args('updateSurveyInput') updateSurveyInput: UpdateSurveyInput) {
-    return this.surveyService.update(updateSurveyInput.id, updateSurveyInput);
+  @Mutation((_returns) => Survey, { nullable: true })
+  async updateSurvey(
+    @Args('data') data: UpdateSurveyInput,
+    @Args('where') where: SurveyWhereUniqueInput,
+  ): Promise<Survey | undefined> {
+    return await this.surveyService.update(data, where);
   }
 
   @Mutation(() => Survey)

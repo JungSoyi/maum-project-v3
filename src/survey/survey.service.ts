@@ -5,6 +5,7 @@ import { UpdateSurveyInput } from './dto/update-survey.input';
 import { Survey } from './entities/survey.entity';
 import { isUUID } from 'class-validator';
 import * as Relay from 'graphql-relay';
+import { SurveyWhereUniqueInput } from './dto/survey-where-unique.input';
 
 
 @Injectable()
@@ -31,8 +32,20 @@ export class SurveyService {
     return this.surveyRepository.findOneBy({ id });
   }
 
-  update(id: number, updateSurveyInput: UpdateSurveyInput) {
-    return `This action updates a #${id} survey`;
+  async update(
+    data: UpdateSurveyInput,
+    where: SurveyWhereUniqueInput,
+  ): Promise<Survey | undefined> {
+    const parsedSurveyId = Relay.fromGlobalId(where.id);
+    if (!isUUID(parsedSurveyId.id)) {
+      return undefined;
+    }
+    const survey = await this.surveyRepository.findOne({ where: parsedSurveyId });
+    if (!survey) {
+      return survey;
+    }
+    this.surveyRepository.merge(survey, data);
+    return await this.surveyRepository.save(survey);
   }
 
   remove(id: number) {
