@@ -5,6 +5,8 @@ import { Question } from './entities/question.entity';
 import { Repository } from 'typeorm';
 import { AnswerService } from 'src/answer/answer.service';
 import { Answer } from 'src/answer/entities/answer.entity';
+import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
+import { isUUID } from 'class-validator';
 
 
 @Injectable()
@@ -34,16 +36,35 @@ export class QuestionService {
     return `This action returns a #${id} question`;
   }
 
-  findOneById(question_id: string) {
-    return this.questionRepository.findOneBy({ question_id });
+  findOneById(id: string) {
+    return this.questionRepository.findOneBy({ id });
   }
 
-  update(id: number, updateQuestionInput: UpdateQuestionInput) {
-    return `This action updates a #${id} question`;
+  async update(
+    data: UpdateQuestionInput,
+    where: QuestionWhereUniqueInput,
+  ): Promise<Question | undefined> {
+    const Id = where.id;
+    if (!isUUID(where.id)) {
+      return undefined;
+    }
+    const question = await this.questionRepository.findOne({ where: { id: Id } });
+    if (!question) {
+      return question;
+    }
+    this.questionRepository.merge(question, data);
+    return await this.questionRepository.save(question);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} question`;
+  async remove(id: string) {
+    if (!isUUID(id)) {
+      return undefined;
+    }
+    const question = await this.questionRepository.findOne({ where: { id: id } });
+    if (!question) {
+      return question;
+    }
+    return this.questionRepository.remove(question);
   }
 
   // findAnswers = async (question_id) => {

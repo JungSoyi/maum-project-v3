@@ -6,6 +6,7 @@ import { UpdateQuestionInput } from './dto/update-question.input';
 import { NotFoundException } from '@nestjs/common';
 import { Answer } from 'src/answer/entities/answer.entity';
 import { CreateQuestionPayload } from './create-question.payload';
+import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
 
 @Resolver(() => Question)
 export class QuestionResolver {
@@ -36,13 +37,17 @@ export class QuestionResolver {
     return question;
   }
 
-  @Mutation(() => Question)
-  updateQuestion(@Args('updateQuestionInput') updateQuestionInput: UpdateQuestionInput) {
-    return this.questionService.update(updateQuestionInput.id, updateQuestionInput);
+
+  @Mutation((_returns) => Question, { nullable: true })
+  async updateQuestion(
+    @Args('data') data: UpdateQuestionInput,
+    @Args('where') where: QuestionWhereUniqueInput,
+  ): Promise<Question | undefined> {
+    return await this.questionService.update(data, where);
   }
 
   @Mutation(() => Question)
-  removeQuestion(@Args('id', { type: () => Int }) id: number) {
+  async removeQuestion(@Args('id') id: string) {
     return this.questionService.remove(id);
   }
 
