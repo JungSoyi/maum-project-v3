@@ -74,16 +74,18 @@ export class SurveyService {
     const survey = await this.surveyRepository.findOne({ where: { id: id } });
     var total_score = survey.total_score;
     console.log(survey.questions.length);
-    for (var i = 0; survey.questions.length < i; i++) {
+    for (var i = 0; i < survey.questions.length; i++) {
       console.log(survey.questions[i].id);
       var question_id = survey.questions[i].id;
       console.log('survey i: %d', i);
       this.questionService.pickAnswer(question_id);
       console.log('question score %d', survey.questions[i].pick_answer_score);
 
-
       total_score += survey.questions[i].pick_answer_score;
+      console.log("total_score", total_score);
     }
-    return true;
+    survey.total_score = total_score;
+
+    return this.surveyRepository.save(survey);
   }
 }

@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
 import { isUUID } from 'class-validator';
 import * as Relay from 'graphql-relay';
+import { UpdateScoreInput } from './dto/update-score.input';
 
 
 
@@ -75,16 +76,17 @@ export class QuestionService {
       return undefined;
     }
     const question = await this.questionRepository.findOne({ where: { id: id } });
-    for (var i = 0; question.answers.length < i; i++) {
+    for (var i = 0; i < question.answers.length; i++) {
       if (question.answers[i].answer_status == true) {
-        console.log('question.pick_answer: ', question.pick_answer)
         console.log('i: %d', i);
         question.pick_answer = i;
         console.log('question.pick_answer: ', question.pick_answer)
+        console.log('answer score: ', question.answers[i].answer_score);
         question.pick_answer_score = question.answers[i].answer_score;
+        this.questionRepository.save(question);
       }
     }
-    this.questionRepository.merge(question,)
-    return true;
+
+    return await this.questionRepository.save(question);
   }
 }
