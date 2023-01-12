@@ -3,7 +3,6 @@ import { Args, ID, Resolver } from "@nestjs/graphql";
 import { fromGlobalId } from "graphql-relay";
 import { AnswerService } from "src/answer/answer.service";
 import { QuestionService } from "src/question/question.service";
-import { ParseUUIDPipe } from "@nestjs/common";
 import { Node } from "./models/node.entity";
 import { SurveyService } from "src/survey/survey.service";
 

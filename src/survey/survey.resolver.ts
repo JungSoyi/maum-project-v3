@@ -3,11 +3,10 @@ import { SurveyService } from './survey.service';
 import { Survey } from './entities/survey.entity';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
-import { HttpException, HttpStatus, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateSurveyPayload } from './entities/create-survey.payload';
 import { SurveyWhereUniqueInput } from './dto/survey-where-unique.input';
 import { MyLogger } from 'src/common/log/logger';
-import { InputValidationError, InvalidServerError } from 'src/common/input-validator-error';
+import { InputValidationError } from 'src/common/input-validator-error';
 import { HttpExceptionFilter } from 'src/common/http-exception.filter';
 
 @Resolver(of => Survey)

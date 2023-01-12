@@ -8,7 +8,6 @@ import { SurveyModule } from './survey/survey.module';
 import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 import { NodesModules } from './nodes/nodes.module';
 import { LoggerModule } from './common/log/logger.module';
 
@@ -39,11 +38,6 @@ import { LoggerModule } from './common/log/logger.module';
   controllers: [AppController],
   providers: [
     AppService
-    // AppService,
-    // {
-    //   // provide: APP_INTERCEPTOR,
-    //   // useClass: DataLoaderInterceptor,
-    // }
   ],
 })
 export class AppModule {

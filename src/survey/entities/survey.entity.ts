@@ -4,12 +4,6 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Up
 import { Node } from 'src/nodes/models/node.entity';
 import { toGlobalId } from 'graphql-relay';
 
-/**
- * survey_id : number
- * created_at : LocalDateTime
- * updated_at : LocalDateTime
- * total_score : number
- */
 @ObjectType({ implements: Node })
 @Entity()
 export class Survey implements Node {

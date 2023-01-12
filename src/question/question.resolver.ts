@@ -1,10 +1,9 @@
-import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { QuestionService } from './question.service';
 import { Question } from './entities/question.entity';
 import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
 import { NotFoundException } from '@nestjs/common';
-import { Answer } from 'src/answer/entities/answer.entity';
 import { CreateQuestionPayload } from './create-question.payload';
 import { QuestionWhereUniqueInput } from './dto/question-where-unique.input';
 import { MyLogger } from 'src/common/log/logger';

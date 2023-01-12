@@ -7,7 +7,6 @@ import { isUUID } from 'class-validator';
 import * as Relay from 'graphql-relay';
 import { SurveyWhereUniqueInput } from './dto/survey-where-unique.input';
 import { QuestionService } from 'src/question/question.service';
-import { InputValidationError } from 'src/common/input-validator-error';
 
 
 @Injectable()
@@ -17,7 +16,6 @@ export class SurveyService {
     @Inject('SURVEY_REPOSITORY')
     private surveyRepository: Repository<Survey>,
     private questionService: QuestionService,
-    private inputValidationError: InputValidationError
   ) { }
 
   async create(createSurveyInput: CreateSurveyInput) {
@@ -33,15 +31,9 @@ export class SurveyService {
   }
 
   findOneById(id: string) {
-    try {
-      const survey = this.surveyRepository.findOneBy({ id });
-      if (survey) {
-        return survey;
-      }
-    }
-    catch (Error) {
-      throw new InputValidationError("Invalid the survey Id", "id")
-    }
+    const survey = this.surveyRepository.findOneBy({ id });
+
+    return survey;
   }
 
   async update(
