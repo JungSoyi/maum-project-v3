@@ -23,9 +23,6 @@ export class SurveyResolver {
 
   @Query(() => [Survey], { name: 'findSurveys' })
   findAll() {
-    console.log('start surveyService');
-    this.surveyService.sumScore;
-    console.log('success sum score');
     return this.surveyService.findAll();
   }
 
@@ -36,7 +33,10 @@ export class SurveyResolver {
     if (!survey) {
       throw new NotFoundException(id)
     }
-    this.surveyService.sumScore(id);
+    if (survey.total_score == 0) {
+      this.surveyService.sumScore(id);
+    }
+
     return survey;
   }
 
