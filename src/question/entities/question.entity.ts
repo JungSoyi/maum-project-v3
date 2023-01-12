@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int, ID, } from '@nestjs/graphql';
 import { Answer } from 'src/answer/entities/answer.entity';
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, RelationId, UpdateDateColumn, } from 'typeorm';
 import { toGlobalId } from 'graphql-relay';
 import { Node } from 'src/nodes/models/node.entity';
 import { Survey } from 'src/survey/entities/survey.entity';
@@ -39,4 +39,7 @@ export class Question implements Node {
   get relayId(): string {
     return toGlobalId('Question', this.id);
   }
+
+  @RelationId((question: Question) => question.survey)
+  surveyId: string;
 }

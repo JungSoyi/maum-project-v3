@@ -8,4 +8,8 @@ export class UpdateQuestionInput {
 
   @Field(() => Int, { nullable: true })
   question_number: number;
+
+  @Field({ nullable: true })
+  survey_id: string;
+
 }

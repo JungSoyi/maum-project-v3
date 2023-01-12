@@ -18,10 +18,13 @@ export class QuestionService {
   ) { }
 
 
-  async create(createQuestionInput: CreateQuestionInput) {
-    const question = new Question();
-    question.question_item = createQuestionInput.question_item;
-    question.question_number = createQuestionInput.question_number;
+  async create(data: CreateQuestionInput) {
+
+    const { survey_id, ...restData } = data;
+    const question = this.questionRepository.create({
+      ...restData,
+      survey: { id: survey_id },
+    });
 
     return this.questionRepository.save(question);
 
