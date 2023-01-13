@@ -44,32 +44,49 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+# 기술스택
 
-## Test
+---
 
-```bash
-# unit tests
-$ npm run test
+1. Nest.JS with Typescript
+2. GraphQL
+3. TypeORM
+4. PostgreSQL
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
+1. To Access GraphQl Playground, open browser and go to http://localhost:4000
 
-## Support
+- Note that your server is running at port 4000
+- Your database is running at port 5432 (DEFAUTL ID AND PASSWORD IS 'postgres')
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+# 구현 API 목록
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+### Queries
 
-Nest is [MIT licensed](LICENSE).
-# maum-project3
-마음프로젝트 백엔드 과제 버전 3입니다.
+- findSurveys - 전체 설문 리스트 조회
+- fetchSurveyById - 설문 아이디로 설문 조회
+- findQuestions - 전체 질문 리스트 조회
+- findQuestionById - 질문 아이디로 질문 조회
+- findAnswers - 전체 답변 리스트 조회
+
+### Mutations
+
+- createSurvey - 설문 생성
+- updateSurvey - 설문 수정
+- removeSurvey - 설문 삭제
+- createQuestion - 질문 생성
+- updateSurvey - 질문 수정
+- removeSurvey - 질문 삭제
+- createAnswer - 답변 생성
+- updateAnswer - 답변 수정
+- removeAnswer - 답변 삭제
+
+# ERD
+
+---
+
+![image](https://user-images.githubusercontent.com/104415354/212230313-afcd1ea9-5b7f-40d5-97bc-5bdf2be8f6b8.png)
+

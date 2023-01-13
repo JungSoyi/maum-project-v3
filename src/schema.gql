@@ -1,0 +1,83 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Answer {
+  answer_id: Int!
+  answer_number: Int!
+  answer_item: String!
+  answer_score: Int!
+}
+
+type Question {
+  question_id: Int!
+  question_number: Int!
+  question_item: String!
+  answers: [Answer!]!
+}
+
+type Survey {
+  """survey id"""
+  survey_id: Int!
+  created_at: Timestamp!
+  updated_at: Timestamp!
+  total_score: Int!
+  questions: [Question!]!
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type Query {
+  survey(id: Int!): Survey!
+  question(id: Int!): Question!
+  answer(id: Int!): Answer!
+}
+
+type Mutation {
+  createSurvey(createSurveyInput: CreateSurveyInput!): Survey!
+  updateSurvey(updateSurveyInput: UpdateSurveyInput!): Survey!
+  removeSurvey(id: Int!): Survey!
+  createQuestion(createQuestionInput: CreateQuestionInput!, createAnswerInput: CreateAnswerInput!): Question!
+  updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
+  removeQuestion(id: Int!): Question!
+  updateAnswer(updateAnswerInput: UpdateAnswerInput!): Answer!
+  removeAnswer(id: Int!): Answer!
+}
+
+input CreateSurveyInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateSurveyInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateQuestionInput {
+  question_item: String!
+  question_number: Int!
+}
+
+input CreateAnswerInput {
+  answer_number: Int!
+  answer_item: String!
+  answer_score: Int!
+}
+
+input UpdateQuestionInput {
+  question_item: String
+  question_number: Int
+  id: Int!
+}
+
+input UpdateAnswerInput {
+  answer_number: Int
+  answer_item: String
+  answer_score: Int
+  id: Int!
+}
