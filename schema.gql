@@ -101,7 +101,7 @@ type Query {
   findSurveyById(id: String!): Survey!
   findQuestions: [Question!]!
   findQuestionById(id: String!): Question!
-  getAnswers: [Answer!]!
+  findAnswers: [Answer!]!
   node(id: ID!): Node
 }
 

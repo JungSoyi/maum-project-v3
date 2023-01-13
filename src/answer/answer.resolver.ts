@@ -38,7 +38,7 @@ export class AnswerResolver {
 
 
     @Query((_returns) => [Answer])
-    async getAnswers() {
+    async findAnswers() {
         this.logger.log('get Answers');
         return await this.answerService.findAll();
     }
