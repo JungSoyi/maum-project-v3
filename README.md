@@ -15,10 +15,6 @@ Pre-requirement : node.js, npm
 
 - Node.JS(& NPM) Installer : https://nodejs.org/en/
 
-```
-$ npm install -g yarn
-```
-
 
 
 1. To Access GraphQl Playground, open browser and go to http://localhost:4000
@@ -55,5 +51,5 @@ $ npm install -g yarn
 
 ---
 
-<image width= "100%" alt="image" src="https://s3.brian-hong.tech/public/Screenshot%202023-01-05%20at%202.28.28%20PM.png">
+![image](https://user-images.githubusercontent.com/104415354/212230313-afcd1ea9-5b7f-40d5-97bc-5bdf2be8f6b8.png)
 
