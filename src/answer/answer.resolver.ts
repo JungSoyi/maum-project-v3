@@ -27,11 +27,6 @@ export class AnswerResolver {
         this.logger.log(data);
         const { question_id, ...rest } = data;
         const databaseQuestionId = Relay.fromGlobalId(question_id).id;
-        try {
-            const response = await fetch('유효하지 않은 질문');
-        } catch (err) {
-            alert(err);
-        }
         const createdAnswer = await this.answerService.create({
             ...rest,
             question_id: databaseQuestionId,

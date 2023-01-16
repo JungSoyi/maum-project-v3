@@ -13,7 +13,7 @@ import { SurveyService } from "src/survey/survey.service";
 import { NodesResolvers } from "./nodes.resolvers";
 
 @Module({
-    imports: [AnswerModule, QuestionModule, DatabaseModule, SurveyModule],
+    imports: [AnswerModule, QuestionModule, SurveyModule],
     providers: [NodesResolvers, AnswerService, QuestionService, SurveyService, ...answerProviders, ...questionProviders, ...surveyProviders, InputValidationError],
 })
 export class NodesModules { }
