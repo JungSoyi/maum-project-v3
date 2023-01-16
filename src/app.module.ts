@@ -10,6 +10,7 @@ import { AnswerModule } from './answer/answer.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { NodesModules } from './nodes/nodes.module';
 import { LoggerModule } from './common/log/logger.module';
+import { DatabaseModule } from './database/database.module';
 
 
 
@@ -34,6 +35,7 @@ import { LoggerModule } from './common/log/logger.module';
     AnswerModule,
     NodesModules,
     LoggerModule,
+    DatabaseModule
   ],
   controllers: [AppController],
   providers: [

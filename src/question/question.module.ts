@@ -7,7 +7,7 @@ import { LoggerModule } from 'src/common/log/logger.module';
 
 
 @Module({
-  imports: [DatabaseModule, LoggerModule],
+  imports: [LoggerModule],
   providers: [QuestionResolver, QuestionService, ...questionProviders],
 })
 export class QuestionModule { }
