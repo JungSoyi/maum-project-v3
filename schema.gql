@@ -25,17 +25,12 @@ type Question {
   id: Int!
   question_number: Int!
   question_item: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   answers: [Answer!]
   survey: Survey!
-  createdAt: Timestamp!
-  updatedAt: Timestamp!
   surveyId: String!
 }
-
-"""
-`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
-"""
-scalar Timestamp
 
 type Survey {
   id: Int!
