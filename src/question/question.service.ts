@@ -31,9 +31,9 @@ export class QuestionService {
     return this.questionRepository.find();
   }
 
-  // findOneById(id: string) {
-  //   return this.questionRepository.findOneBy({ id });
-  // }
+  findOneById(id: number) {
+    return this.questionRepository.findOneBy({ id });
+  }
 
   // async update(
   //   data: UpdateQuestionInput,

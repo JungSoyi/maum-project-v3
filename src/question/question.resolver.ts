@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { QuestionService } from './question.service';
 import { Question } from './entities/question.entity';
 import { CreateQuestionInput } from './dto/create-question.input';
@@ -20,24 +20,24 @@ export class QuestionResolver {
     @Args('data') data: CreateQuestionInput,
   ) {
     this.logger.log('create Question');
-    this.questionService.create(data);
+    return this.questionService.create(data);
 
   }
-  // @Query(() => [Question], { name: 'findQuestions' })
-  // findAll() {
-  //   this.logger.log('find Questions')
-  //   return this.questionService.findAll();
-  // }
+  @Query(() => [Question], { name: 'findQuestions' })
+  findAll() {
+    this.logger.log('find Questions')
+    return this.questionService.findAll();
+  }
 
-  // @Query(() => Question, { name: 'findQuestionById' })
-  // async findOneById(@Args('id', { type: () => String }) id: string) {
-  //   this.logger.log('find a Question');
-  //   const question = await this.questionService.findOneById(id);
-  //   if (!question) {
-  //     throw new NotFoundException(id)
-  //   }
-  //   return question;
-  // }
+  @Query(() => Question, { name: 'findQuestionById' })
+  async findOneById(@Args('id', { type: () => Int }) id: number) {
+    this.logger.log('find a Question');
+    const question = await this.questionService.findOneById(id);
+    if (!question) {
+      throw new NotFoundException(id)
+    }
+    return question;
+  }
 
 
   // @Mutation((_returns) => Question, { nullable: true })
