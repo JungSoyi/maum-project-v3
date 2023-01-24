@@ -47,16 +47,14 @@ export class QuestionService {
     return await this.questionRepository.save(question);
   }
 
-  // async remove(id: string) {
-  //   if (!isUUID(id)) {
-  //     return undefined;
-  //   }
-  //   const question = await this.questionRepository.findOne({ where: { id: id } });
-  //   if (!question) {
-  //     return question;
-  //   }
-  //   return this.questionRepository.remove(question);
-  // }
+  async remove(id: number) {
+
+    const question = await this.findOneById(id);
+    if (!question) {
+      return question;
+    }
+    return this.questionRepository.remove(question);
+  }
 
   // async pickAnswer(id: string) {
   //   console.log('start pickAnswer');

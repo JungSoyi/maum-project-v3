@@ -49,11 +49,11 @@ export class QuestionResolver {
     return await this.questionService.update(data, id);
   }
 
-  // @Mutation(() => Question)
-  // async removeQuestion(@Args('id') id: string) {
-  //   this.logger.log('delete a Question');
-  //   return this.questionService.remove(id);
-  // }
+  @Mutation(() => Question)
+  async removeQuestion(@Args('id', { type: () => Int }) id: number) {
+    this.logger.log('delete a Question');
+    return this.questionService.remove(id);
+  }
 
 
 

@@ -59,6 +59,7 @@ type Mutation {
   removeSurvey(id: Float!): Survey!
   createQuestion(data: CreateQuestionInput!): Question!
   updateQuestion(data: UpdateQuestionInput!, id: Int!): Question
+  removeQuestion(id: Int!): Question!
   createAnswer(data: CreateAnswerInput!): Answer!
 }
 
