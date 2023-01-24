@@ -19,7 +19,7 @@ export class AnswerResolver {
     ) { }
 
 
-    @Mutation()
+    @Mutation(returns => Answer)
     async createAnswer(
         @Args('data') data: CreateAnswerInput,
     ) {

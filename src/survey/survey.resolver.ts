@@ -14,11 +14,12 @@ export class SurveyResolver {
   constructor(private readonly surveyService: SurveyService,
     private readonly logger: MyLogger) { }
 
-  @Mutation()
+  @Mutation(returns => Survey)
   createSurvey(
     @Args('data') data: CreateSurveyInput) {
     this.logger.log('create a Survey');
-    this.surveyService.create(data);
+    return this.surveyService.create(data);
+
   }
 
   @Query(() => [Survey], { name: 'findSurveys' })

@@ -1,11 +1,8 @@
 import { ObjectType, Field, Int, ID, GraphQLISODateTime } from '@nestjs/graphql';
 import { Question } from 'src/question/entities/question.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, RelationId, UpdateDateColumn } from 'typeorm';
-import { toGlobalId } from 'graphql-relay';
-import { Node } from '../../nodes/models/node.entity';
 
-
-@ObjectType({ implements: Node })
+@ObjectType()
 @Entity()
 export class Answer {
     @Field(() => Int)

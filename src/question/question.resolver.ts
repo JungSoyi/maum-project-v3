@@ -15,7 +15,7 @@ export class QuestionResolver {
   ) { }
 
 
-  @Mutation()
+  @Mutation(returns => Question)
   async createQuestion(
     @Args('data') data: CreateQuestionInput,
   ) {

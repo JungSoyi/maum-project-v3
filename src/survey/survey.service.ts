@@ -15,9 +15,8 @@ export class SurveyService {
     private questionService: QuestionService,
   ) { }
 
-  async create(createSurveyInput: CreateSurveyInput) {
-    const survey = new Survey();
-    survey.survey_number = createSurveyInput.survey_number;
+  async create(data: CreateSurveyInput) {
+    const survey = this.surveyRepository.create(data);
 
     return this.surveyRepository.save(survey);
   }

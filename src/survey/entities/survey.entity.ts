@@ -1,9 +1,8 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Question } from 'src/question/entities/question.entity';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Node } from 'src/nodes/models/node.entity';
 
-@ObjectType({ implements: Node })
+@ObjectType()
 @Entity()
 export class Survey {
 
@@ -12,6 +11,7 @@ export class Survey {
   id: number;
 
   @Field(() => String)
+  @Column()
   survey_title: string;
 
   @Field(() => Int)

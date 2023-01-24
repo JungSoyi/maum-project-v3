@@ -6,7 +6,7 @@ export class CreateSurveyInput {
   @Field(() => Int)
   survey_number: number;
 
-  @Field(() => [Question])
-  questions: Question[];
+  @Field(() => String)
+  survey_title: string;
 
 }
