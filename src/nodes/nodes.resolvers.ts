@@ -24,8 +24,8 @@ export class NodesResolvers {
             return null;
         }
         switch (resolvedGlobalId.type) {
-            case 'Answer':
-                return await this.answerService.findOneById(resolvedGlobalId.id);
+            // case 'Answer':
+            //     return await this.answerService.findOneById(resolvedGlobalId.id);
             // case 'Question':
             //     return await this.questionService.findOneById(resolvedGlobalId.id);
             // case 'Survey':

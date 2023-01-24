@@ -7,10 +7,10 @@ import { Node } from '../../nodes/models/node.entity';
 
 @ObjectType({ implements: Node })
 @Entity()
-export class Answer implements Node {
-    @Field(() => String)
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+export class Answer {
+    @Field(() => Int)
+    @PrimaryGeneratedColumn('increment')
+    id: number;
 
     @Field(() => Int)
     @Column()
@@ -43,9 +43,5 @@ export class Answer implements Node {
     @RelationId((answer: Answer) => answer.question)
     question_id: string;
 
-    @Field(() => ID, { name: 'id' })
-    get relayId(): string {
-        return toGlobalId('Answer', this.id);
-    }
 
 }

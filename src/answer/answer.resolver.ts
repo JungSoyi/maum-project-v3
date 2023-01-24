@@ -19,6 +19,14 @@ export class AnswerResolver {
     ) { }
 
 
+    @Mutation()
+    async createAnswer(
+        @Args('data') data: CreateAnswerInput,
+    ) {
+        this.logger.log(data);
+        await this.answerService.create(data);
+
+    }
 
     // @Mutation((_returns) => CreateAnswerPayload)
     // async createAnswer(
@@ -37,27 +45,27 @@ export class AnswerResolver {
     // }
 
 
-    @Query((_returns) => [Answer])
-    async findAnswers() {
-        this.logger.log('get Answers');
-        return await this.answerService.findAll();
-    }
+    // @Query((_returns) => [Answer])
+    // async findAnswers() {
+    //     this.logger.log('get Answers');
+    //     return await this.answerService.findAll();
+    // }
 
 
-    @Mutation((_returns) => Answer, { nullable: true })
-    async updateAnswer(
-        @Args('data') data: UpdateAnswerInput,
-        @Args('where') where: AnswerWhereUniqueInput,
-    ): Promise<Answer | undefined> {
-        this.logger.log('update Answer');
-        return await this.answerService.update(data, where);
-    }
+    // @Mutation((_returns) => Answer, { nullable: true })
+    // async updateAnswer(
+    //     @Args('data') data: UpdateAnswerInput,
+    //     @Args('where') where: AnswerWhereUniqueInput,
+    // ): Promise<Answer | undefined> {
+    //     this.logger.log('update Answer');
+    //     return await this.answerService.update(data, where);
+    // }
 
-    @Mutation(() => Answer)
-    async removeAnswer(@Args('id') id: string) {
-        this.logger.log('delete Answer')
-        return this.answerService.remove(id);
-    }
+    // @Mutation(() => Answer)
+    // async removeAnswer(@Args('id') id: string) {
+    //     this.logger.log('delete Answer')
+    //     return this.answerService.remove(id);
+    // }
 
     // @ResolveField(() => Question)
     // async question(@Parent() answer: Answer): Promise<Question> {

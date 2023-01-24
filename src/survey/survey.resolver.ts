@@ -14,7 +14,7 @@ export class SurveyResolver {
   constructor(private readonly surveyService: SurveyService,
     private readonly logger: MyLogger) { }
 
-  @Mutation((_returns) => CreateSurveyPayload)
+  @Mutation()
   createSurvey(
     @Args('data') data: CreateSurveyInput) {
     this.logger.log('create a Survey');
