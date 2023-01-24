@@ -3,9 +3,6 @@ import { Repository } from 'typeorm';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
 import { Survey } from './entities/survey.entity';
-import { isUUID } from 'class-validator';
-import * as Relay from 'graphql-relay';
-import { SurveyWhereUniqueInput } from './dto/survey-where-unique.input';
 import { QuestionService } from 'src/question/question.service';
 
 
@@ -18,10 +15,8 @@ export class SurveyService {
     private questionService: QuestionService,
   ) { }
 
-  async create(createSurveyInput: CreateSurveyInput) {
-    const survey = new Survey();
-    survey.survey_number = createSurveyInput.survey_number;
-    survey.total_score = 0;
+  async create(data: CreateSurveyInput) {
+    const survey = this.surveyRepository.create(data);
 
     return this.surveyRepository.save(survey);
   }
@@ -30,21 +25,14 @@ export class SurveyService {
     return this.surveyRepository.find();
   }
 
-  findOneById(id: string) {
+  findOneById(id: number) {
     const survey = this.surveyRepository.findOneBy({ id });
 
     return survey;
   }
 
-  async update(
-    data: UpdateSurveyInput,
-    where: SurveyWhereUniqueInput,
-  ): Promise<Survey | undefined> {
-    const parsedSurveyId = Relay.fromGlobalId(where.id);
-    if (!isUUID(parsedSurveyId.id)) {
-      return undefined;
-    }
-    const survey = await this.surveyRepository.findOne({ where: parsedSurveyId });
+  async update(data: UpdateSurveyInput, id: number) {
+    const survey = await this.findOneById(id);
     if (!survey) {
       return survey;
     }
@@ -52,11 +40,11 @@ export class SurveyService {
     return await this.surveyRepository.save(survey);
   }
 
-  async remove(id: string) {
-    if (!isUUID(id)) {
+  async remove(id: number) {
+    if (!this.findOneById(id)) {
       return undefined;
     }
-    const survey = await this.surveyRepository.findOne({ where: { id: id } });
+    const survey = await this.findOneById(id);
     if (!survey) {
       return survey;
     }
@@ -66,28 +54,28 @@ export class SurveyService {
   /**
    * 설문이 완료되면 answer_status가 true인 항목의 점수를 합산
    */
-  async sumScore(id: string) {
-    console.log('startsumScore');
-    if (!isUUID(id)) {
-      console.log('!isUUID');
-      return undefined;
-    }
-    console.log('start totalscore calcurate');
-    const survey = await this.surveyRepository.findOne({ where: { id: id } });
-    var total_score = survey.total_score;
-    console.log(survey.questions.length);
-    for (var i = 0; i < survey.questions.length; i++) {
-      console.log(survey.questions[i].id);
-      var question_id = survey.questions[i].id;
-      console.log('survey i: %d', i);
-      this.questionService.pickAnswer(question_id);
-      console.log('question score %d', survey.questions[i].pick_answer_score);
+  // async sumScore(id: string) {
+  //   console.log('startsumScore');
+  //   if (!isUUID(id)) {
+  //     console.log('!isUUID');
+  //     return undefined;
+  //   }
+  //   console.log('start totalscore calcurate');
+  //   const survey = await this.surveyRepository.findOne({ where: { id: id } });
+  //   // var total_score = survey.total_score;
+  //   console.log(survey.questions.length);
+  //   for (var i = 0; i < survey.questions.length; i++) {
+  //     console.log(survey.questions[i].id);
+  //     var question_id = survey.questions[i].id;
+  //     console.log('survey i: %d', i);
+  //     this.questionService.pickAnswer(question_id);
+  //     console.log('question score %d', survey.questions[i].pick_answer_score);
 
-      total_score += survey.questions[i].pick_answer_score;
-      console.log("total_score", total_score);
-    }
-    survey.total_score = total_score;
+  //     // total_score += survey.questions[i].pick_answer_score;
+  //     // console.log("total_score", total_score);
+  //   }
+  //   // survey.total_score = total_score;
 
-    return this.surveyRepository.save(survey);
-  }
+  //   return this.surveyRepository.save(survey);
+  // }
 }

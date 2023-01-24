@@ -9,7 +9,7 @@ import { LoggerModule } from 'src/common/log/logger.module';
 import { InputValidationError } from 'src/common/input-validator-error';
 
 @Module({
-  imports: [DatabaseModule, LoggerModule],
+  imports: [LoggerModule],
   providers: [SurveyResolver, SurveyService, ...surveyProviders, QuestionService, ...questionProviders, InputValidationError],
 })
 export class SurveyModule { }

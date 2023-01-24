@@ -17,51 +17,48 @@ export class AnswerService {
 
 
   async create(data: CreateAnswerInput) {
-    const { question_id, ...restData } = data;
-    const answer = this.answerRepository.create({
-      ...restData,
-      question: { id: question_id },
-    });
+    const answer = this.answerRepository.create(data);
+
     return await this.answerRepository.save(answer);
   }
 
 
-  async findAll() {
-    return this.answerRepository.find();
-  }
+  // async findAll() {
+  //   return this.answerRepository.find();
+  // }
 
-  async update(
-    data: UpdateAnswerInput,
-    where: AnswerWhereUniqueInput
-  ): Promise<Answer | undefined> {
-    const id = where.id;
-    if (!where.id) {
-      return undefined;
-    }
-    const answer = await this.answerRepository.findOne({ where: { id: id } });
-    if (!Answer) {
-      return answer;
-    }
-    this.answerRepository.merge(answer, data);
-    return await this.answerRepository.save(answer);
+  // async update(
+  //   data: UpdateAnswerInput,
+  //   where: AnswerWhereUniqueInput
+  // ): Promise<Answer | undefined> {
+  //   const id = where.id;
+  //   if (!where.id) {
+  //     return undefined;
+  //   }
+  //   const answer = await this.answerRepository.findOne({ where: { id: id } });
+  //   if (!Answer) {
+  //     return answer;
+  //   }
+  //   this.answerRepository.merge(answer, data);
+  //   return await this.answerRepository.save(answer);
 
-  }
+  // }
 
-  async remove(id: string) {
-    if (!isUUID(id)) {
-      return undefined;
-    }
-    const answer = await this.answerRepository.findOne({ where: { id: id } });
-    if (!answer) {
-      return answer;
-    }
-    return this.answerRepository.remove(answer);
-  }
+  // async remove(id: string) {
+  //   if (!isUUID(id)) {
+  //     return undefined;
+  //   }
+  //   const answer = await this.answerRepository.findOne({ where: { id: id } });
+  //   if (!answer) {
+  //     return answer;
+  //   }
+  //   return this.answerRepository.remove(answer);
+  // }
 
 
-  async findOneById(id: string): Promise<Answer | undefined> {
-    return await this.answerRepository.findOneBy({ id });
-  }
+  // async findOneById(id: string): Promise<Answer | undefined> {
+  //   return await this.answerRepository.findOneBy({ id });
+  // }
 
 
   /**

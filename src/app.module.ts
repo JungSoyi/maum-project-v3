@@ -8,8 +8,8 @@ import { SurveyModule } from './survey/survey.module';
 import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
-import { NodesModules } from './nodes/nodes.module';
 import { LoggerModule } from './common/log/logger.module';
+import { DatabaseModule } from './database/database.module';
 
 
 
@@ -32,8 +32,8 @@ import { LoggerModule } from './common/log/logger.module';
     SurveyModule,
     QuestionModule,
     AnswerModule,
-    NodesModules,
     LoggerModule,
+    DatabaseModule
   ],
   controllers: [AppController],
   providers: [
