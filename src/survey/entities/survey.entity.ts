@@ -8,9 +8,12 @@ import { toGlobalId } from 'graphql-relay';
 @Entity()
 export class Survey implements Node {
 
+  @Field(() => Int)
+  @PrimaryGeneratedColumn("increment")
+  id: number;
+
   @Field(() => String)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  survey_name: string;
 
   @Field(() => Int)
   @Column({ nullable: true })
