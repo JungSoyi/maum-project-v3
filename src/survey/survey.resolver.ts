@@ -29,46 +29,47 @@ export class SurveyResolver {
   }
 
 
-  // @Query(() => Survey, { name: 'findSurveyById' })
-  // async findOneById(@Args('id', { type: () => String }) id: string) {
-  //   this.logger.log('find a Survey');
-  //   try {
-  //     await this.surveyService.findOneById(id);
-  //   } catch (error) {
-  //     throw new InputValidationError(
-  //       "Invalid survey Id", "find survey"
-  //     )
-  //   }
-  //   const survey = await this.surveyService.findOneById(id);
+  @Query(() => Survey, { name: 'findSurveyById' })
+  async findOneById(@Args('id', { type: () => Int }) id: number) {
+    this.logger.log('find a Survey');
+    try {
+      await this.surveyService.findOneById(id);
+    } catch (error) {
+      throw new InputValidationError(
+        "Invalid survey Id", "find survey"
+      )
+    }
+    return await this.surveyService.findOneById(id);
 
 
-  //   return survey;
-  // }
+    //   return survey;
+    // }
 
-  // @Mutation((_returns) => Survey, { nullable: true })
-  // async updateSurvey(
-  //   @Args('data') data: UpdateSurveyInput,
-  //   @Args('where') where: SurveyWhereUniqueInput,
-  // ): Promise<Survey | undefined> {
-  //   this.logger.log('update a Survey');
-  //   try {
-  //     this.surveyService.findOneById(where.id);
-  //   } catch (error) {
-  //     throw new InputValidationError(
-  //       "Invalid survey Id", "update survey"
-  //     )
-  //   }
-  //   return await this.surveyService.update(data, where);
-  // }
+    // @Mutation((_returns) => Survey, { nullable: true })
+    // async updateSurvey(
+    //   @Args('data') data: UpdateSurveyInput,
+    //   @Args('where') where: SurveyWhereUniqueInput,
+    // ): Promise<Survey | undefined> {
+    //   this.logger.log('update a Survey');
+    //   try {
+    //     this.surveyService.findOneById(where.id);
+    //   } catch (error) {
+    //     throw new InputValidationError(
+    //       "Invalid survey Id", "update survey"
+    //     )
+    //   }
+    //   return await this.surveyService.update(data, where);
+    // }
 
-  // @Mutation(() => Survey)
-  // removeSurvey(@Args('id') id: string) {
-  //   this.logger.log('delete a Survey');
-  //   try {
-  //     this.surveyService.findOneById(id);
-  //   } catch {
-  //     throw HttpExceptionFilter;
-  //   }
-  //   return this.surveyService.remove(id);
-  // }
+    // @Mutation(() => Survey)
+    // removeSurvey(@Args('id') id: string) {
+    //   this.logger.log('delete a Survey');
+    //   try {
+    //     this.surveyService.findOneById(id);
+    //   } catch {
+    //     throw HttpExceptionFilter;
+    //   }
+    //   return this.surveyService.remove(id);
+    // }
+  }
 }

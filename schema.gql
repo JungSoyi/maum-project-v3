@@ -48,6 +48,7 @@ type Survey {
 
 type Query {
   findSurveys: [Survey!]!
+  findSurveyById(id: Int!): Survey!
 }
 
 type Mutation {

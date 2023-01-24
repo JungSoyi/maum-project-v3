@@ -25,11 +25,11 @@ export class SurveyService {
     return this.surveyRepository.find();
   }
 
-  // findOneById(id: string) {
-  //   const survey = this.surveyRepository.findOneBy({ id });
+  findOneById(id: number) {
+    const survey = this.surveyRepository.findOneBy({ id });
 
-  //   return survey;
-  // }
+    return survey;
+  }
 
   // async update(
   //   data: UpdateSurveyInput,
