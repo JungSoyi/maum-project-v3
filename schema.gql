@@ -32,12 +32,26 @@ type Question {
   surveyId: String!
 }
 
+type DoServey {
+  id: Int!
+  doServey_name: String!
+  surveys: Surveys!
+}
+
+type Surveys {
+  id: Int!
+  survey_id: Int!
+  survey: Survey
+  doServey: DoServey!
+}
+
 type Survey {
   id: Int!
   survey_title: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   questions: [Question!]
+  surveys: [Survey!]!
 }
 
 type Query {

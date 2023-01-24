@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int, GraphQLISODateTime } from '@nestjs/graphql';
 import { Question } from 'src/question/entities/question.entity';
+import { Surveys } from 'src/surveys/entity/surveys.entity';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
@@ -26,5 +27,9 @@ export class Survey {
   @Field(() => [Question], { nullable: true })
   @OneToMany(() => Question, (question) => question.survey, { eager: true })
   questions: Question[];
+
+  @Field(() => [Survey])
+  @OneToMany(() => Surveys, (surveys) => surveys.survey)
+  surveys: Surveys[];
 
 }
