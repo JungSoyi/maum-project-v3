@@ -32,7 +32,7 @@ type Question {
   surveyId: String!
 }
 
-type DoServey {
+type DoSurvey {
   id: Int!
   doServey_name: String!
   surveys: Surveys!
@@ -42,7 +42,7 @@ type Surveys {
   id: Int!
   survey_id: Int!
   survey: Survey
-  doServey: DoServey!
+  doServey: DoSurvey!
 }
 
 type Survey {

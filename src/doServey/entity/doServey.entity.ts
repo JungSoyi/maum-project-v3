@@ -6,7 +6,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
  */
 @ObjectType()
 @Entity()
-export class DoServey {
+export class DoSurvey {
     @Field(() => Int)
     @PrimaryGeneratedColumn("increment")
     id: number;
