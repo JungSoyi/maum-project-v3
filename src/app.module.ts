@@ -10,6 +10,8 @@ import { AnswerModule } from './answer/answer.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { LoggerModule } from './common/log/logger.module';
 import { DatabaseModule } from './database/database.module';
+import { DoSurveyModule } from './doServey/dosurvey.module';
+import { SurveysModule } from './surveys/surveys.module';
 
 
 
@@ -33,7 +35,9 @@ import { DatabaseModule } from './database/database.module';
     QuestionModule,
     AnswerModule,
     LoggerModule,
-    DatabaseModule
+    DatabaseModule,
+    DoSurveyModule,
+    SurveysModule
   ],
   controllers: [AppController],
   providers: [

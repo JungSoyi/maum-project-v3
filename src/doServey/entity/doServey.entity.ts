@@ -13,7 +13,7 @@ export class DoSurvey {
 
     @Field(() => String)
     @Column()
-    doServey_name: string;
+    doSurvey_name: string;
 
     @Field()
     @OneToMany(() => Surveys, (surveys) => surveys.doServey)

@@ -1,6 +1,7 @@
-import { Field, Int } from "@nestjs/graphql";
+import { Field, InputType, Int } from "@nestjs/graphql";
 
-export class SurveysInput {
+@InputType()
+export class CreateSurveysInput {
     @Field(() => Int)
     doSurvey_id: number;
 
