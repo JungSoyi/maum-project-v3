@@ -6,22 +6,18 @@ import { toGlobalId } from 'graphql-relay';
 
 @ObjectType({ implements: Node })
 @Entity()
-export class Survey implements Node {
+export class Survey {
 
   @Field(() => Int)
   @PrimaryGeneratedColumn("increment")
   id: number;
 
   @Field(() => String)
-  survey_name: string;
+  survey_title: string;
 
   @Field(() => Int)
   @Column({ nullable: true })
   survey_number: number;
-
-  @Field(() => Int)
-  @Column({ nullable: true })
-  total_score: number;
 
   @CreateDateColumn()
   readonly createdAt: Date;
@@ -33,8 +29,4 @@ export class Survey implements Node {
   @OneToMany(() => Question, (question) => question.survey, { eager: true })
   questions: Question[];
 
-  @Field(() => ID, { name: 'id' })
-  get relayId(): string {
-    return toGlobalId('Survey', this.id);
-  }
 }
