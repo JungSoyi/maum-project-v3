@@ -26,10 +26,10 @@ export class NodesResolvers {
         switch (resolvedGlobalId.type) {
             case 'Answer':
                 return await this.answerService.findOneById(resolvedGlobalId.id);
-            case 'Question':
-                return await this.questionService.findOneById(resolvedGlobalId.id);
-            case 'Survey':
-                return await this.surveyService.findOneById(resolvedGlobalId.id);
+            // case 'Question':
+            //     return await this.questionService.findOneById(resolvedGlobalId.id);
+            // case 'Survey':
+            //     return await this.surveyService.findOneById(resolvedGlobalId.id);
             default:
                 break;
         }

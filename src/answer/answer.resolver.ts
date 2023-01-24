@@ -20,21 +20,21 @@ export class AnswerResolver {
 
 
 
-    @Mutation((_returns) => CreateAnswerPayload)
-    async createAnswer(
-        @Args('data') data: CreateAnswerInput,
-    ): Promise<CreateAnswerPayload> {
-        this.logger.log(data);
-        const { question_id, ...rest } = data;
-        const databaseQuestionId = Relay.fromGlobalId(question_id).id;
-        const createdAnswer = await this.answerService.create({
-            ...rest,
-            question_id: databaseQuestionId,
-        });
-        return {
-            answerEdge: { node: createdAnswer, cursor: `temp:${createdAnswer.relayId}` },
-        };
-    }
+    // @Mutation((_returns) => CreateAnswerPayload)
+    // async createAnswer(
+    //     @Args('data') data: CreateAnswerInput,
+    // ): Promise<CreateAnswerPayload> {
+    //     this.logger.log(data);
+    //     const { question_id, ...rest } = data;
+    //     const databaseQuestionId = Relay.fromGlobalId(question_id).id;
+    //     const createdAnswer = await this.answerService.create({
+    //         ...rest,
+    //         question_id: databaseQuestionId,
+    //     });
+    //     return {
+    //         answerEdge: { node: createdAnswer, cursor: `temp:${createdAnswer.relayId}` },
+    //     };
+    // }
 
 
     @Query((_returns) => [Answer])
@@ -59,10 +59,10 @@ export class AnswerResolver {
         return this.answerService.remove(id);
     }
 
-    @ResolveField(() => Question)
-    async question(@Parent() answer: Answer): Promise<Question> {
-        const question = await this.questionService.findOneById(answer.question_id);
-        return question!;
-    }
+    // @ResolveField(() => Question)
+    // async question(@Parent() answer: Answer): Promise<Question> {
+    //     const question = await this.questionService.findOneById(answer.question_id);
+    //     return question!;
+    // }
 
 }

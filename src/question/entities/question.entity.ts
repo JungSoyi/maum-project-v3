@@ -7,11 +7,11 @@ import { Survey } from 'src/survey/entities/survey.entity';
 
 @ObjectType({ implements: Node })
 @Entity()
-export class Question implements Node {
+export class Question {
 
-  @Field(() => String)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @Field(() => Int)
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
   @Field(() => Int)
   @Column()
@@ -20,14 +20,6 @@ export class Question implements Node {
   @Field(() => String)
   @Column()
   question_item: string;
-
-  @Field(() => Int, { defaultValue: null })
-  @Column({ nullable: true })
-  pick_answer: number
-
-  @Field(() => Int, { defaultValue: null })
-  @Column({ nullable: true })
-  pick_answer_score: number
 
   @CreateDateColumn()
   readonly createdAt: Date;
@@ -42,11 +34,6 @@ export class Question implements Node {
   @Field(() => Survey)
   @ManyToOne(() => Survey, (survey) => survey.questions)
   survey: Survey
-
-  @Field(() => ID, { name: 'id' })
-  get relayId(): string {
-    return toGlobalId('Question', this.id);
-  }
 
   @RelationId((question: Question) => question.survey)
   surveyId: string;

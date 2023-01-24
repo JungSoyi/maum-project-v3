@@ -16,14 +16,14 @@ export class AnswerService {
   ) { }
 
 
-  async create(data: CreateAnswerInput) {
-    const { question_id, ...restData } = data;
-    const answer = this.answerRepository.create({
-      ...restData,
-      question: { id: question_id },
-    });
-    return await this.answerRepository.save(answer);
-  }
+  // async create(data: CreateAnswerInput) {
+  //   const { question_id, ...restData } = data;
+  //   const answer = this.answerRepository.create({
+  //     ...restData,
+  //     question: { id: question_id },
+  //   });
+  //   return await this.answerRepository.save(answer);
+  // }
 
 
   async findAll() {
