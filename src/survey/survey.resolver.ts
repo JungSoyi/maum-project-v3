@@ -1,10 +1,8 @@
-import { Resolver, Query, Mutation, Args, Int, Float } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { SurveyService } from './survey.service';
 import { Survey } from './entities/survey.entity';
 import { CreateSurveyInput } from './dto/create-survey.input';
 import { UpdateSurveyInput } from './dto/update-survey.input';
-import { CreateSurveyPayload } from './entities/create-survey.payload';
-import { SurveyWhereUniqueInput } from './dto/survey-where-unique.input';
 import { MyLogger } from 'src/common/log/logger';
 import { InputValidationError } from 'src/common/input-validator-error';
 import { HttpExceptionFilter } from 'src/common/http-exception.filter';
@@ -60,7 +58,7 @@ export class SurveyResolver {
   }
 
   @Mutation(returns => Survey)
-  removeSurvey(@Args('id') id: number) {
+  removeSurvey(@Args('id', { type: () => Int }) id: number) {
     this.logger.log('delete a Survey');
     try {
       this.surveyService.findOneById(id);
