@@ -29,7 +29,7 @@ export class Survey {
   questions: Question[];
 
   @Field(() => [Survey])
-  @OneToMany(() => Surveys, (surveys) => surveys.survey)
+  @OneToMany(() => Surveys, (surveys) => surveys.survey, { eager: true })
   surveys: Surveys[];
 
 }
