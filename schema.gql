@@ -32,12 +32,27 @@ type Question {
   surveyId: String!
 }
 
+type DoSurvey {
+  id: Int!
+  doSurvey_name: String!
+  surveys: Surveys!
+}
+
+type Surveys {
+  id: Int!
+  surveyId: Int!
+  doSurveyId: Int!
+  survey: Survey!
+  doSurvey: DoSurvey!
+}
+
 type Survey {
   id: Int!
   survey_title: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   questions: [Question!]
+  surveys: [Survey!]!
 }
 
 type Query {
@@ -56,6 +71,8 @@ type Mutation {
   updateQuestion(data: UpdateQuestionInput!, id: Int!): Question
   removeQuestion(id: Int!): Question!
   createAnswer(data: CreateAnswerInput!): Answer!
+  createDoSurvey(data: CreateDoSurveyInput!): DoSurvey!
+  createSurveys(data: CreateSurveysInput!): Surveys!
 }
 
 input CreateSurveyInput {
@@ -82,4 +99,13 @@ input CreateAnswerInput {
   answer_item: String!
   answer_score: Int!
   question_id: Int!
+}
+
+input CreateDoSurveyInput {
+  doSurvey_name: String!
+}
+
+input CreateSurveysInput {
+  doSurveyId: Int!
+  surveyId: Int!
 }
