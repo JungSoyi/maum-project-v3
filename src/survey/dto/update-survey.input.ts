@@ -4,8 +4,6 @@ import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 export class UpdateSurveyInput {
 
   @Field(() => String, { nullable: true })
-  title?: string;
+  survey_title?: string;
 
-  @Field(() => Int, { nullable: true })
-  survey_number?: number;
 }

@@ -23,9 +23,9 @@ export class AnswerService {
   }
 
 
-  // async findAll() {
-  //   return this.answerRepository.find();
-  // }
+  async findAll() {
+    return this.answerRepository.find();
+  }
 
   // async update(
   //   data: UpdateAnswerInput,

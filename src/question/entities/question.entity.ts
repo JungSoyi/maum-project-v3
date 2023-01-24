@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, ID, } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID, GraphQLISODateTime, } from '@nestjs/graphql';
 import { Answer } from 'src/answer/entities/answer.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, RelationId, UpdateDateColumn, } from 'typeorm';
 import { Survey } from 'src/survey/entities/survey.entity';
@@ -20,9 +20,11 @@ export class Question {
   question_item: string;
 
   @CreateDateColumn()
+  @Field(() => GraphQLISODateTime)
   readonly createdAt: Date;
 
   @UpdateDateColumn()
+  @Field(() => GraphQLISODateTime)
   readonly updatedAt: Date;
 
   @Field(() => [Answer], { nullable: true })

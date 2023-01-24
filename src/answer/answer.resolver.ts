@@ -45,11 +45,11 @@ export class AnswerResolver {
     // }
 
 
-    // @Query((_returns) => [Answer])
-    // async findAnswers() {
-    //     this.logger.log('get Answers');
-    //     return await this.answerService.findAll();
-    // }
+    @Query((_returns) => [Answer])
+    async findAnswers() {
+        this.logger.log('get Answers');
+        return await this.answerService.findAll();
+    }
 
 
     // @Mutation((_returns) => Answer, { nullable: true })
