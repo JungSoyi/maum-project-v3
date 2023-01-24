@@ -13,4 +13,4 @@ export class DoSurveyResolver {
     ) {
         return this.doSurveyService.create(data);
     }
-}
+} 
