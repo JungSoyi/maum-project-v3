@@ -31,21 +31,14 @@ export class SurveyService {
     return survey;
   }
 
-  // async update(
-  //   data: UpdateSurveyInput,
-  //   where: SurveyWhereUniqueInput,
-  // ): Promise<Survey | undefined> {
-  //   const parsedSurveyId = Relay.fromGlobalId(where.id);
-  //   if (!isUUID(parsedSurveyId.id)) {
-  //     return undefined;
-  //   }
-  //   const survey = await this.surveyRepository.findOne({ where: parsedSurveyId });
-  //   if (!survey) {
-  //     return survey;
-  //   }
-  //   this.surveyRepository.merge(survey, data);
-  //   return await this.surveyRepository.save(survey);
-  // }
+  async update(data: UpdateSurveyInput, id: number) {
+    const survey = await this.findOneById(id);
+    if (!survey) {
+      return survey;
+    }
+    this.surveyRepository.merge(survey, data);
+    return await this.surveyRepository.save(survey);
+  }
 
   // async remove(id: string) {
   //   if (!isUUID(id)) {

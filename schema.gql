@@ -53,6 +53,7 @@ type Query {
 
 type Mutation {
   createSurvey(data: CreateSurveyInput!): Survey!
+  updateSurvey(data: UpdateSurveyInput!, id: Float!): Survey
   createQuestion(data: CreateQuestionInput!): Question!
   createAnswer(data: CreateAnswerInput!): Answer!
 }
@@ -60,6 +61,11 @@ type Mutation {
 input CreateSurveyInput {
   survey_number: Int!
   survey_title: String!
+}
+
+input UpdateSurveyInput {
+  title: String
+  survey_number: Int
 }
 
 input CreateQuestionInput {
