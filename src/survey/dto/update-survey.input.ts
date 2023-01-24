@@ -1,11 +1,8 @@
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { CreateSurveyInput } from './create-survey.input';
 
 @InputType()
-export class UpdateSurveyInput {
+export class UpdateSurveyInput extends PartialType(CreateSurveyInput) {
 
-  @Field(() => String, { nullable: true })
-  title?: string;
 
-  @Field(() => Int, { nullable: true })
-  survey_number?: number;
 }

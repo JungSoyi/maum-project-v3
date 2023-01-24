@@ -13,7 +13,7 @@ type Answer {
   createdAt: DateTime!
   updatedAt: DateTime!
   question: Question!
-  question_id: String!
+  question_id: Float!
 }
 
 """
@@ -40,10 +40,9 @@ scalar Timestamp
 type Survey {
   id: Int!
   survey_title: String!
-  survey_number: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   questions: [Question!]
-  createdAt: Timestamp!
-  updatedAt: Timestamp!
 }
 
 type Query {
@@ -51,12 +50,13 @@ type Query {
   findSurveyById(id: Int!): Survey!
   findQuestions: [Question!]!
   findQuestionById(id: Int!): Question!
+  findAnswers: [Answer!]!
 }
 
 type Mutation {
   createSurvey(data: CreateSurveyInput!): Survey!
   updateSurvey(data: UpdateSurveyInput!, id: Float!): Survey
-  removeSurvey(id: Float!): Survey!
+  removeSurvey(id: Int!): Survey!
   createQuestion(data: CreateQuestionInput!): Question!
   updateQuestion(data: UpdateQuestionInput!, id: Int!): Question
   removeQuestion(id: Int!): Question!
@@ -64,13 +64,11 @@ type Mutation {
 }
 
 input CreateSurveyInput {
-  survey_number: Int!
   survey_title: String!
 }
 
 input UpdateSurveyInput {
-  title: String
-  survey_number: Int
+  survey_title: String
 }
 
 input CreateQuestionInput {
@@ -88,5 +86,5 @@ input CreateAnswerInput {
   answer_number: Int!
   answer_item: String!
   answer_score: Int!
-  question_id: String!
+  question_id: Int!
 }

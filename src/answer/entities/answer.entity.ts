@@ -38,7 +38,7 @@ export class Answer {
     question: Question
 
     @RelationId((answer: Answer) => answer.question)
-    question_id: string;
+    question_id: number;
 
 
 }
