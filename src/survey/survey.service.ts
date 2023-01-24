@@ -40,16 +40,16 @@ export class SurveyService {
     return await this.surveyRepository.save(survey);
   }
 
-  // async remove(id: string) {
-  //   if (!isUUID(id)) {
-  //     return undefined;
-  //   }
-  //   const survey = await this.surveyRepository.findOne({ where: { id: id } });
-  //   if (!survey) {
-  //     return survey;
-  //   }
-  //   return this.surveyRepository.remove(survey);
-  // }
+  async remove(id: number) {
+    if (!this.findOneById(id)) {
+      return undefined;
+    }
+    const survey = await this.findOneById(id);
+    if (!survey) {
+      return survey;
+    }
+    return this.surveyRepository.remove(survey);
+  }
 
   /**
    * 설문이 완료되면 answer_status가 true인 항목의 점수를 합산

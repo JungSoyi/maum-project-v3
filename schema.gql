@@ -54,6 +54,7 @@ type Query {
 type Mutation {
   createSurvey(data: CreateSurveyInput!): Survey!
   updateSurvey(data: UpdateSurveyInput!, id: Float!): Survey
+  removeSurvey(id: Float!): Survey!
   createQuestion(data: CreateQuestionInput!): Question!
   createAnswer(data: CreateAnswerInput!): Answer!
 }
