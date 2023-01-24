@@ -40,9 +40,10 @@ type DoSurvey {
 
 type Surveys {
   id: Int!
-  survey_id: Int!
-  survey: Survey
-  doServey: DoSurvey!
+  surveyId: Int!
+  doSurveyId: Int!
+  survey: Survey!
+  doSurvey: DoSurvey!
 }
 
 type Survey {
@@ -105,6 +106,6 @@ input CreateDoSurveyInput {
 }
 
 input CreateSurveysInput {
-  doSurvey_id: Int!
-  survey_id: Int!
+  doSurveyId: Int!
+  surveyId: Int!
 }

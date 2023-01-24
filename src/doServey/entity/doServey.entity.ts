@@ -15,8 +15,8 @@ export class DoSurvey {
     @Column()
     doSurvey_name: string;
 
-    @Field()
-    @OneToMany(() => Surveys, (surveys) => surveys.doServey)
+
+    @OneToMany(() => Surveys, (surveys) => surveys.doSurvey)
     surveys: Surveys;
 
 }
