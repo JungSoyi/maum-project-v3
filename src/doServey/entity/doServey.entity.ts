@@ -16,7 +16,7 @@ export class DoSurvey {
     doSurvey_name: string;
 
 
-    @OneToMany(() => Surveys, (surveys) => surveys.doSurvey)
+    @OneToMany(() => Surveys, (surveys) => surveys.doSurvey, { eager: true })
     surveys: Surveys;
 
 }
