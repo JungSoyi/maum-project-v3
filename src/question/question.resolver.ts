@@ -40,14 +40,14 @@ export class QuestionResolver {
   }
 
 
-  // @Mutation((_returns) => Question, { nullable: true })
-  // async updateQuestion(
-  //   @Args('data') data: UpdateQuestionInput,
-  //   @Args('where') where: QuestionWhereUniqueInput,
-  // ): Promise<Question | undefined> {
-  //   this.logger.log('update a Question');
-  //   return await this.questionService.update(data, where);
-  // }
+  @Mutation((_returns) => Question, { nullable: true })
+  async updateQuestion(
+    @Args('data') data: UpdateQuestionInput,
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<Question | undefined> {
+    this.logger.log('update a Question');
+    return await this.questionService.update(data, id);
+  }
 
   // @Mutation(() => Question)
   // async removeQuestion(@Args('id') id: string) {

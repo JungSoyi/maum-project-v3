@@ -58,6 +58,7 @@ type Mutation {
   updateSurvey(data: UpdateSurveyInput!, id: Float!): Survey
   removeSurvey(id: Float!): Survey!
   createQuestion(data: CreateQuestionInput!): Question!
+  updateQuestion(data: UpdateQuestionInput!, id: Int!): Question
   createAnswer(data: CreateAnswerInput!): Answer!
 }
 
@@ -74,6 +75,12 @@ input UpdateSurveyInput {
 input CreateQuestionInput {
   question_item: String!
   question_number: Int!
+}
+
+input UpdateQuestionInput {
+  question_item: String
+  question_number: Int
+  survey_id: String
 }
 
 input CreateAnswerInput {

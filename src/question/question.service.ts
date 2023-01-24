@@ -35,21 +35,17 @@ export class QuestionService {
     return this.questionRepository.findOneBy({ id });
   }
 
-  // async update(
-  //   data: UpdateQuestionInput,
-  //   where: QuestionWhereUniqueInput,
-  // ): Promise<Question | undefined> {
-  //   const parsedQuestionId = Relay.fromGlobalId(where.id);
-  //   if (!isUUID(parsedQuestionId.id)) {
-  //     return undefined;
-  //   }
-  //   const question = await this.questionRepository.findOne({ where: parsedQuestionId });
-  //   if (!question) {
-  //     return question;
-  //   }
-  //   this.questionRepository.merge(question, data);
-  //   return await this.questionRepository.save(question);
-  // }
+  async update(
+    data: UpdateQuestionInput,
+    id: number,
+  ) {
+    const question = await this.questionRepository.findOneBy({ id });
+    if (!question) {
+      return question;
+    }
+    this.questionRepository.merge(question, data);
+    return await this.questionRepository.save(question);
+  }
 
   // async remove(id: string) {
   //   if (!isUUID(id)) {

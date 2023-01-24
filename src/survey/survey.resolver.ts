@@ -58,7 +58,7 @@ export class SurveyResolver {
   }
 
   @Mutation(returns => Survey)
-  removeSurvey(@Args('id') id: number) {
+  removeSurvey(@Args('id', { type: () => Int }) id: number) {
     this.logger.log('delete a Survey');
     try {
       this.surveyService.findOneById(id);
