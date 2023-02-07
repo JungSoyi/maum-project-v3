@@ -9,7 +9,7 @@ import { questionProviders } from 'src/question/question.providers';
 import { LoggerModule } from 'src/common/log/logger.module';
 
 @Module({
-    imports: [DatabaseModule, QuestionModule, LoggerModule],
+    imports: [QuestionModule, LoggerModule],
     providers: [AnswerResolver, AnswerService, ...answerProviders, QuestionService, ...questionProviders]
 })
 export class AnswerModule { }

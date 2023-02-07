@@ -8,7 +8,4 @@ export class CreateQuestionInput {
   @Field(() => Int)
   question_number: number;
 
-  @Field()
-  survey_id: string;
-
 }

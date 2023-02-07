@@ -19,22 +19,30 @@ export class AnswerResolver {
     ) { }
 
 
-
-    @Mutation((_returns) => CreateAnswerPayload)
+    @Mutation(returns => Answer)
     async createAnswer(
         @Args('data') data: CreateAnswerInput,
-    ): Promise<CreateAnswerPayload> {
+    ) {
         this.logger.log(data);
-        const { question_id, ...rest } = data;
-        const databaseQuestionId = Relay.fromGlobalId(question_id).id;
-        const createdAnswer = await this.answerService.create({
-            ...rest,
-            question_id: databaseQuestionId,
-        });
-        return {
-            answerEdge: { node: createdAnswer, cursor: `temp:${createdAnswer.relayId}` },
-        };
+        await this.answerService.create(data);
+
     }
+
+    // @Mutation((_returns) => CreateAnswerPayload)
+    // async createAnswer(
+    //     @Args('data') data: CreateAnswerInput,
+    // ): Promise<CreateAnswerPayload> {
+    //     this.logger.log(data);
+    //     const { question_id, ...rest } = data;
+    //     const databaseQuestionId = Relay.fromGlobalId(question_id).id;
+    //     const createdAnswer = await this.answerService.create({
+    //         ...rest,
+    //         question_id: databaseQuestionId,
+    //     });
+    //     return {
+    //         answerEdge: { node: createdAnswer, cursor: `temp:${createdAnswer.relayId}` },
+    //     };
+    // }
 
 
     @Query((_returns) => [Answer])
@@ -44,25 +52,25 @@ export class AnswerResolver {
     }
 
 
-    @Mutation((_returns) => Answer, { nullable: true })
-    async updateAnswer(
-        @Args('data') data: UpdateAnswerInput,
-        @Args('where') where: AnswerWhereUniqueInput,
-    ): Promise<Answer | undefined> {
-        this.logger.log('update Answer');
-        return await this.answerService.update(data, where);
-    }
+    // @Mutation((_returns) => Answer, { nullable: true })
+    // async updateAnswer(
+    //     @Args('data') data: UpdateAnswerInput,
+    //     @Args('where') where: AnswerWhereUniqueInput,
+    // ): Promise<Answer | undefined> {
+    //     this.logger.log('update Answer');
+    //     return await this.answerService.update(data, where);
+    // }
 
-    @Mutation(() => Answer)
-    async removeAnswer(@Args('id') id: string) {
-        this.logger.log('delete Answer')
-        return this.answerService.remove(id);
-    }
+    // @Mutation(() => Answer)
+    // async removeAnswer(@Args('id') id: string) {
+    //     this.logger.log('delete Answer')
+    //     return this.answerService.remove(id);
+    // }
 
-    @ResolveField(() => Question)
-    async question(@Parent() answer: Answer): Promise<Question> {
-        const question = await this.questionService.findOneById(answer.question_id);
-        return question!;
-    }
+    // @ResolveField(() => Question)
+    // async question(@Parent() answer: Answer): Promise<Question> {
+    //     const question = await this.questionService.findOneById(answer.question_id);
+    //     return question!;
+    // }
 
 }

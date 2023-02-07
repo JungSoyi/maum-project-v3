@@ -4,12 +4,8 @@
 
 directive @upper on FIELD_DEFINITION
 
-interface Node {
-  id: ID!
-}
-
-type Answer implements Node {
-  id: ID!
+type Answer {
+  id: Int!
   answer_number: Int!
   answer_item: String!
   answer_score: Int!
@@ -17,7 +13,7 @@ type Answer implements Node {
   createdAt: DateTime!
   updatedAt: DateTime!
   question: Question!
-  question_id: String!
+  question_id: Float!
 }
 
 """
@@ -25,114 +21,71 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Question implements Node {
-  id: ID!
+type Question {
+  id: Int!
   question_number: Int!
   question_item: String!
-  pick_answer: Int!
-  pick_answer_score: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   answers: [Answer!]
   survey: Survey!
-  createdAt: Timestamp!
-  updatedAt: Timestamp!
   surveyId: String!
 }
 
-"""
-`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
-"""
-scalar Timestamp
+type DoSurvey {
+  id: Int!
+  doSurvey_name: String!
+  surveys: Surveys!
+}
 
-type Survey implements Node {
-  id: ID!
-  survey_number: Int!
-  total_score: Int!
+type Surveys {
+  id: Int!
+  surveyId: Int!
+  doSurveyId: Int!
+  survey: Survey!
+  doSurvey: DoSurvey!
+}
+
+type Survey {
+  id: Int!
+  survey_title: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   questions: [Question!]
-  createdAt: Timestamp!
-  updatedAt: Timestamp!
-}
-
-type PageInfo {
-  startCursor: String
-  endCursor: String
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-}
-
-type SurveyEdge {
-  node: Survey!
-
-  """Used in `before` and `after` args"""
-  cursor: String!
-}
-
-type CreateSurveyPayload {
-  surveyEdge: SurveyEdge!
-}
-
-type QuestionEdge {
-  node: Question!
-
-  """Used in `before` and `after` args"""
-  cursor: String!
-}
-
-type CreateQuestionPayload {
-  questionEdge: QuestionEdge!
-}
-
-type AnswerEdge {
-  node: Answer!
-
-  """Used in `before` and `after` args"""
-  cursor: String!
-}
-
-type AggregateAnswer {
-  count: Float!
-}
-
-type CreateAnswerPayload {
-  answerEdge: AnswerEdge!
+  surveys: [Survey!]!
 }
 
 type Query {
   findSurveys: [Survey!]!
-  findSurveyById(id: String!): Survey!
+  findSurveyById(id: Int!): Survey!
   findQuestions: [Question!]!
-  findQuestionById(id: String!): Question!
+  findQuestionById(id: Int!): Question!
   findAnswers: [Answer!]!
-  node(id: ID!): Node
 }
 
 type Mutation {
-  createSurvey(data: CreateSurveyInput!): CreateSurveyPayload!
-  updateSurvey(data: UpdateSurveyInput!, where: SurveyWhereUniqueInput!): Survey
-  removeSurvey(id: String!): Survey!
-  createQuestion(data: CreateQuestionInput!): CreateQuestionPayload!
-  updateQuestion(data: UpdateQuestionInput!, where: QuestionWhereUniqueInput!): Question
-  removeQuestion(id: String!): Question!
-  createAnswer(data: CreateAnswerInput!): CreateAnswerPayload!
-  updateAnswer(data: UpdateAnswerInput!, where: AnswerWhereUniqueInput!): Answer
-  removeAnswer(id: String!): Answer!
+  createSurvey(data: CreateSurveyInput!): Survey!
+  updateSurvey(data: UpdateSurveyInput!, id: Float!): Survey
+  removeSurvey(id: Int!): Survey!
+  createQuestion(data: CreateQuestionInput!): Question!
+  updateQuestion(data: UpdateQuestionInput!, id: Int!): Question
+  removeQuestion(id: Int!): Question!
+  createAnswer(data: CreateAnswerInput!): Answer!
+  createDoSurvey(data: CreateDoSurveyInput!): DoSurvey!
+  createSurveys(data: CreateSurveysInput!): Surveys!
 }
 
 input CreateSurveyInput {
-  survey_number: Int!
+  survey_title: String!
 }
 
 input UpdateSurveyInput {
-  survey_number: Int
-}
-
-input SurveyWhereUniqueInput {
-  id: ID!
+  survey_title: String
 }
 
 input CreateQuestionInput {
   question_item: String!
   question_number: Int!
-  survey_id: String!
 }
 
 input UpdateQuestionInput {
@@ -141,25 +94,18 @@ input UpdateQuestionInput {
   survey_id: String
 }
 
-input QuestionWhereUniqueInput {
-  id: ID!
-}
-
 input CreateAnswerInput {
   answer_number: Int!
   answer_item: String!
   answer_score: Int!
-  question_id: String!
+  question_id: Int!
 }
 
-input UpdateAnswerInput {
-  answer_number: Int
-  answer_item: String
-  answer_score: Int
-  question_id: String
-  answer_status: Boolean
+input CreateDoSurveyInput {
+  doSurvey_name: String!
 }
 
-input AnswerWhereUniqueInput {
-  id: ID!
+input CreateSurveysInput {
+  doSurveyId: Int!
+  surveyId: Int!
 }

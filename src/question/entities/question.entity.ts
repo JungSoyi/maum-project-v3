@@ -1,17 +1,15 @@
-import { ObjectType, Field, Int, ID, } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID, GraphQLISODateTime, } from '@nestjs/graphql';
 import { Answer } from 'src/answer/entities/answer.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, RelationId, UpdateDateColumn, } from 'typeorm';
-import { toGlobalId } from 'graphql-relay';
-import { Node } from 'src/nodes/models/node.entity';
 import { Survey } from 'src/survey/entities/survey.entity';
 
-@ObjectType({ implements: Node })
+@ObjectType()
 @Entity()
-export class Question implements Node {
+export class Question {
 
-  @Field(() => String)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @Field(() => Int)
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
   @Field(() => Int)
   @Column()
@@ -21,18 +19,12 @@ export class Question implements Node {
   @Column()
   question_item: string;
 
-  @Field(() => Int, { defaultValue: null })
-  @Column({ nullable: true })
-  pick_answer: number
-
-  @Field(() => Int, { defaultValue: null })
-  @Column({ nullable: true })
-  pick_answer_score: number
-
   @CreateDateColumn()
+  @Field(() => GraphQLISODateTime)
   readonly createdAt: Date;
 
   @UpdateDateColumn()
+  @Field(() => GraphQLISODateTime)
   readonly updatedAt: Date;
 
   @Field(() => [Answer], { nullable: true })
@@ -42,11 +34,6 @@ export class Question implements Node {
   @Field(() => Survey)
   @ManyToOne(() => Survey, (survey) => survey.questions)
   survey: Survey
-
-  @Field(() => ID, { name: 'id' })
-  get relayId(): string {
-    return toGlobalId('Question', this.id);
-  }
 
   @RelationId((question: Question) => question.survey)
   surveyId: string;
